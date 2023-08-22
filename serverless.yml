@@ -34,7 +34,7 @@ functions:
     handler: src/index.handler
     events:
       - http:
-          path: /people
+          path: /people/all
           method: get
 
   create:

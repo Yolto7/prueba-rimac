@@ -14,80 +14,122 @@ tags:
 schemes:
   - 'https'
 paths:
-  /people/swapi:
-    get:
-      tags:
-        - 'PeopleSwapi'
-      summary: 'Get all peoples of star wars from swapi'
-      description: 'This endpoint get all peoples'
-      produces:
-        - 'application/json'
-
   /people:
-    post:
-      tags:
-        - 'People'
-      summary: 'Create a people in postgresql'
-      description: 'This endpoint create people'
-      produces:
-        - 'application/json'
+    /swapi:
+      get:
+        tags:
+          - 'PeopleSwapi'
+        summary: 'Get all peoples of star wars from swapi'
+        description: 'This endpoint get all peoples'
+        produces:
+          - 'application/json'
+        responses: 
+          '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/PeopleSwapiResponse'
 
-definitions:
-  People:
-    type: 'object'
-    properties:
-      name:
-        type: 'string'
-        required: true
-      height:
-        type: 'integer'
-        required: true
-      mass:
-        type: 'integer'
-        required: true
-      hair_color:
-        type: 'string'
-        required: true
-      skin_color:
-        type: 'string'
-        required: true
-      eye_color:
-        type: 'string'
-        required: true
-      birth_year:
-        type: 'string'
-        required: true
-      gender:
-        type: 'string'
-        required: true
+    /all:
+      get:
+        tags:
+          - 'People'
+        summary: 'Get all peoples of database'
+        description: 'This endpoint get all peoples'
+        produces:
+          - 'application/json'
+        responses:
+          '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/PeopleResponse'
 
-  PeopleSwapi:
-    type: 'object'
-    properties:
-      nombre:
-        type: 'string'
-        required: true
-      altura:
-        type: 'integer'
-        required: true
-      masa:
-        type: 'integer'
-        required: true
-      color_pelo:
-        type: 'string'
-        required: true
-      color_piel:
-        type: 'string'
-        required: true
-      color_ojo:
-        type: 'string'
-        required: true
-      aniversario:
-        type: 'string'
-        required: true
-      genero:
-        type: 'string'
-        required: true
-      fecha_fundado:
-        type: 'string'
-        required: true
+    /:
+      post:
+        tags:
+          - 'People'
+        summary: 'Create a people in database'
+        description: 'This endpoint create people'
+        produces:
+          - 'application/json'
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeopleRequest'
+        responses: 
+          '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/PeopleResponse'
+
+components:
+  schemas:
+    PeopleSwapiResponse:
+      type: 'object'
+      properties:
+        nombre:
+          type: 'string'
+        altura:
+          type: 'integer'
+        masa:
+          type: 'integer'
+        color_pelo:
+          type: 'string'
+        color_piel:
+          type: 'string'
+        color_ojo:
+          type: 'string'
+        aniversario:
+          type: 'string'
+        genero:
+          type: 'string'
+        fecha_fundado:
+          type: 'string'
+
+    PeopleRequest:
+      type: 'object'
+      properties:
+        name:
+          type: string
+          required: true
+        height:
+          type: integer
+          required: true
+        mass:
+          type: integer
+          required: true
+        hair_color:
+          type: string
+          required: true
+        skin_color:
+          type: string
+          required: true
+        eye_color:
+          type: string
+          required: true
+        birth_year:
+          type: string
+          required: true
+        gender:
+          type: string
+          required: true
+
+    PeopleResponse:
+      type: 'object'
+      properties:
+        id_people: integer
+        name: string
+        height: integer
+        mass: integer
+        hair_color: string
+        skin_color: string
+        eye_color: string
+        birth_year: string
+        gender: string
+        createdat: string

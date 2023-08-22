@@ -28,5 +28,5 @@ export default createController(PeopleController)
   .prefix('/people')
 
   .get('/swapi', 'getAllBySwapi')
-  .get('/', 'getAll')
+  .get('/all', 'getAll')
   .post('/', 'create');
