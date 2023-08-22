@@ -50,7 +50,7 @@ REDIS_PARTITION_KEY=Testing.
 
 ```
 
-- step 3: Run the command 'npm run dev' to launch the application locally.
+- step 3: Run the 'npm run dev' command to launch the application locally.
 - step 4: Run the 'npm run test' command to execute the application tests.
 
 Happy Code 🎸
