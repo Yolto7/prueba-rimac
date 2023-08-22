@@ -1,0 +1,48 @@
+import PeopleService from '../../../src/services/people.service';
+
+describe('People Service', () => {
+  const peopleRepository = { getAll: jest.fn(), create: jest.fn(), dbp: jest.mock, pgp: jest.mock };
+  const swapiProxy = { getPeople: jest.fn(), axios: jest.mock };
+  const peopleService = new PeopleService(peopleRepository, swapiProxy);
+
+  // mocks
+  const swapiMock = [
+    {
+      name: 'Luke Skywalker',
+      height: '172',
+      mass: '77',
+      hair_color: 'blond',
+      skin_color: 'fair',
+      eye_color: 'blue',
+      birth_year: '19BBY',
+      gender: 'male',
+      created: '2014-12-09T13:50:51.644000Z',
+    },
+  ];
+
+  it('Should get people of swapi', async () => {
+    jest.spyOn(swapiProxy, 'getPeople').mockImplementation(async () => swapiMock);
+
+    const result = await peopleService.getAllBySwapi();
+
+    expect(result).toBeDefined();
+  });
+
+  it('Should create people', async () => {
+    jest.spyOn(peopleRepository, 'create').mockImplementation(async () => 8);
+
+    const cardMock = {
+      name: 'Joaquin',
+      height: 178,
+      mass: 85,
+      hair_color: 'red',
+      skin_color: 'black',
+      eye_color: 'blue',
+      birth_year: '19BY',
+      gender: 'male',
+    };
+    const result = await peopleService.create(cardMock);
+
+    expect(result).toBeDefined();
+  });
+});

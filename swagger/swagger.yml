@@ -1,0 +1,93 @@
+swagger: 2
+info:
+  title: 'SERVERLES AWS POSTGRESQL'
+  version: '1.0.0'
+  description: 'APP SWAPI'
+  contact:
+    email: 'svencooof@gmail.com'
+  license:
+    name: 'Apache 2.0'
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: 'People'
+    description: 'Api about star wars characters'
+schemes:
+  - 'https'
+paths:
+  /people/swapi:
+    get:
+      tags:
+        - 'PeopleSwapi'
+      summary: 'Get all peoples of star wars from swapi'
+      description: 'This endpoint get all peoples'
+      produces:
+        - 'application/json'
+
+  /people:
+    post:
+      tags:
+        - 'People'
+      summary: 'Create a people in postgresql'
+      description: 'This endpoint create people'
+      produces:
+        - 'application/json'
+
+definitions:
+  People:
+    type: 'object'
+    properties:
+      name:
+        type: 'string'
+        required: true
+      height:
+        type: 'integer'
+        required: true
+      mass:
+        type: 'integer'
+        required: true
+      hair_color:
+        type: 'string'
+        required: true
+      skin_color:
+        type: 'string'
+        required: true
+      eye_color:
+        type: 'string'
+        required: true
+      birth_year:
+        type: 'string'
+        required: true
+      gender:
+        type: 'string'
+        required: true
+
+  PeopleSwapi:
+    type: 'object'
+    properties:
+      nombre:
+        type: 'string'
+        required: true
+      altura:
+        type: 'integer'
+        required: true
+      masa:
+        type: 'integer'
+        required: true
+      color_pelo:
+        type: 'string'
+        required: true
+      color_piel:
+        type: 'string'
+        required: true
+      color_ojo:
+        type: 'string'
+        required: true
+      aniversario:
+        type: 'string'
+        required: true
+      genero:
+        type: 'string'
+        required: true
+      fecha_fundado:
+        type: 'string'
+        required: true
