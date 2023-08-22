@@ -11,7 +11,7 @@ export default class PeopleService {
   private _normalizeData(data: any[]) {
     const newArray = [];
     for (const item of data) {
-      let newObject: any = {};
+      const newObject: any = {};
 
       for (const key of Object.keys(item)) {
         const value = item[key];

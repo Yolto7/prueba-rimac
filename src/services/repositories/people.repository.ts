@@ -6,8 +6,6 @@ export default class PeopleRepository {
   dbp: any;
   pgp: any;
 
-  constructor() {}
-
   public async getAll() {
     try {
       const result: any = await connectDB();
