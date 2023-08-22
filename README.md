@@ -1,15 +1,35 @@
-# Serverless - AWS Node.js Typescript, Redis and PostgreSQL
+# Serverless - AWS Node.js Typescript, Express and PostgreSQL
 
 Serverless Framework with TypeScript with n layers architecture.
 
 ## Prerequisites
 
-Remember to previously have installed nodejs, serverless, postgresql, pgAdmin and redis.
+Remember to previously have installed nodejs, serverless, postgresql and pgAdmin.
 
 - [`serverless-framework`](https://github.com/serverless/serverless)
 - [`pgAdmin`](https://www.pgadmin.org/)
 - [`node.js`](https://nodejs.org)
 - [`redis`](https://redis.io/docs/getting-started/installation/install-redis-on-windows/)
+
+Run the sql script inside the database folder, so that it creates the database and its corresponding table.
+
+```
+CREATE DATABASE example;
+
+CREATE TABLE people (
+  id_people serial PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  height INTEGER NOT NULL,
+  mass INTEGER NOT NULL,
+  hair_color VARCHAR(50) NOT NULL,
+  skin_color VARCHAR(50) NOT NULL,
+  eye_color VARCHAR(50) NOT NULL,
+  birth_year VARCHAR(50) NOT NULL,
+  gender VARCHAR(10) NOT NULL,
+  createdAt TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+);
+
+```
 
 ## Run the project locally
 
@@ -32,7 +52,5 @@ REDIS_PARTITION_KEY=Testing.
 
 - step 3: Run the command 'npm run dev' to launch the application locally.
 - step 4: Run the 'npm run test' command to execute the application tests.
-- step 5: Run the 'npm run format:fix' command to fix prettier errors.
-- step 6: Run the 'npm run lint' command to see which files have linter errors.
 
 Happy Code 🎸
