@@ -31,11 +31,11 @@ export default class PeopleService {
     return this._normalizeData(result);
   }
 
-  async getAll() {
+  getAll() {
     return this.peopleRepository.getAll();
   }
 
-  async create(entity: any) {
+  create(entity: any) {
     const peopleToCreate = {
       name: entity.name,
       height: entity.height,
@@ -46,6 +46,6 @@ export default class PeopleService {
       birth_year: entity.birth_year,
       gender: entity.gender,
     };
-    return await this.peopleRepository.create(peopleToCreate);
+    return this.peopleRepository.create(peopleToCreate);
   }
 }

@@ -5,22 +5,20 @@ describe('People Service', () => {
   const swapiProxy = { getPeople: jest.fn(), axios: jest.mock };
   const peopleService = new PeopleService(peopleRepository, swapiProxy);
 
-  // mocks
-  const swapiMock = [
-    {
-      name: 'Luke Skywalker',
-      height: '172',
-      mass: '77',
-      hair_color: 'blond',
-      skin_color: 'fair',
-      eye_color: 'blue',
-      birth_year: '19BBY',
-      gender: 'male',
-      created: '2014-12-09T13:50:51.644000Z',
-    },
-  ];
-
   it('Should get people of swapi', async () => {
+    const swapiMock = [
+      {
+        name: 'Luke Skywalker',
+        height: '172',
+        mass: '77',
+        hair_color: 'blond',
+        skin_color: 'fair',
+        eye_color: 'blue',
+        birth_year: '19BBY',
+        gender: 'male',
+        created: '2014-12-09T13:50:51.644000Z',
+      },
+    ];
     jest.spyOn(swapiProxy, 'getPeople').mockImplementation(async () => swapiMock);
 
     const result = await peopleService.getAllBySwapi();
@@ -42,6 +40,28 @@ describe('People Service', () => {
       gender: 'male',
     };
     const result = await peopleService.create(cardMock);
+
+    expect(result).toBeDefined();
+  });
+
+  it('Should get people of database', async () => {
+    const peopleMock = [
+      {
+        id: 9,
+        name: 'Luke Skywalker',
+        height: 172,
+        mass: 77,
+        hair_color: 'blond',
+        skin_color: 'fair',
+        eye_color: 'blue',
+        birth_year: '19BBY',
+        gender: 'male',
+        created: '2014-12-09T13:50:51.644000Z',
+      },
+    ];
+    jest.spyOn(peopleRepository, 'getAll').mockImplementation(async () => peopleMock);
+
+    const result = await peopleService.getAll();
 
     expect(result).toBeDefined();
   });

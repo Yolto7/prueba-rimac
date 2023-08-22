@@ -12,6 +12,7 @@ class PeopleController {
     const result = await this.peopleService.getAllBySwapi();
     AppSuccess(res, SUCCESS.OBTAINED, result);
   }
+
   async getAll(_req: Request, res: Response) {
     const result = await this.peopleService.getAll();
     AppSuccess(res, SUCCESS.OBTAINED, result);

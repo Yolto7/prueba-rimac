@@ -6,7 +6,7 @@ export default class PeopleRepository {
   dbp: any;
   pgp: any;
 
-  public async getAll() {
+  async getAll() {
     try {
       const result: any = await connectDB();
       this.dbp = result.dbp;
@@ -45,7 +45,7 @@ export default class PeopleRepository {
       await this.dbp.result(sql);
 
       sql = `SELECT MAX(id_people) AS new_id FROM public.people`;
-      sql = this.pgp.as.format(sql, Object.values(dbEntity));
+      sql = this.pgp.as.format(sql);
       const data = await this.dbp.result(sql);
 
       return data.rows[0];
