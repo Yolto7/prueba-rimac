@@ -6,7 +6,6 @@ import { Request, Response, NextFunction } from 'express';
 import pkg from '../package.json';
 import { loadContainer } from './container';
 import app from './app';
-import logger from './common/logger';
 import config from './config';
 import { AppError } from './common/error';
 
@@ -20,22 +19,20 @@ app.use(loadControllers('routes/*.js', { cwd: __dirname }));
 app.listen(app.get('port'), () => {
   if (!config.isProduction) {
     const route = () => `http://localhost:${config.PORT}`;
-    logger.info(`Hello, your app is ready on ${route()}`);
-    logger.info('To shut it down, press <CTRL> + C at any time.');
-    logger.info('-------------------------------------------------------');
-    logger.info(`Environment  : ${config.NODE_ENV}`);
-    logger.info(`Version      : ${pkg.version}`);
-    logger.info(`API Info     : ${route()}`);
-    logger.info('-------------------------------------------------------');
+    console.log(`Hello, your app is ready on ${route()}`);
+    console.log('To shut it down, press <CTRL> + C at any time.');
+    console.log('-------------------------------------------------------');
+    console.log(`Environment  : ${config.NODE_ENV}`);
+    console.log(`Version      : ${pkg.version}`);
+    console.log(`API Info     : ${route()}`);
+    console.log('-------------------------------------------------------');
   } else {
-    logger.info(`${pkg.name} is up and running.`);
+    console.log(`${pkg.name} is up and running.`);
   }
 });
 
 // middlewares for error
 app.use((error: AppError, _req: Request, res: Response, _next: NextFunction): any => {
-  logger.error(error.message);
-
   if (error.errorCode) {
     res.status(400);
     res.send({

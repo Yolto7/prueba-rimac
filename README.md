@@ -38,6 +38,7 @@ CREATE TABLE people (
 
 ```
 NODE_ENV=staging
+PORT=3000
 
 DB_USER='<your user>'
 DB_PASS='<your password>'
@@ -45,8 +46,7 @@ DB_HOST=localhost
 DB_NAME='<your database name>'
 DB_PORT=5432
 
-REDISCLOUD_URL=redis://127.0.0.1:6379
-REDIS_PARTITION_KEY=Testing.
+SWAPI_URL= https://swapi.py4e.com/api
 
 ```
 
