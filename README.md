@@ -9,7 +9,6 @@ Remember to previously have installed nodejs, serverless, postgresql and pgAdmin
 - [`serverless-framework`](https://github.com/serverless/serverless)
 - [`pgAdmin`](https://www.pgadmin.org/)
 - [`node.js`](https://nodejs.org)
-- [`redis`](https://redis.io/docs/getting-started/installation/install-redis-on-windows/)
 
 Run the sql script inside the database folder, so that it creates the database and its corresponding table.
 
