@@ -6,9 +6,10 @@ Serverless Framework with TypeScript with n layers architecture.
 
 Remember to previously have installed nodejs, serverless, postgresql and pgAdmin.
 
-- [`serverless-framework`](https://github.com/serverless/serverless)
-- [`pgAdmin`](https://www.pgadmin.org/)
 - [`node.js`](https://nodejs.org)
+- [`serverless-framework`](https://github.com/serverless/serverless)
+- [`postgresql`](https://www.postgresql.org/docs/)
+- [`pgAdmin`](https://www.pgadmin.org/)
 
 Run the sql script inside the database folder, so that it creates the database and its corresponding table.
 
@@ -42,8 +43,8 @@ PORT=3000
 DB_USER='<your user>'
 DB_PASS='<your password>'
 DB_HOST=localhost
-DB_NAME='<your database name>'
-DB_PORT=5432
+DB_NAME=example
+DB_PORT='<your port>'
 
 SWAPI_URL= https://swapi.py4e.com/api
 
