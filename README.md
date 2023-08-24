@@ -37,7 +37,7 @@ CREATE TABLE people (
 - step 2: Create an .env file to start the configuration of your project in localhost environment.
 
 ```
-NODE_ENV=staging
+NODE_ENV=development
 PORT=3000
 
 DB_USER='<your user>'

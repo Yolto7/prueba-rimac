@@ -6,7 +6,6 @@ import { Request, Response, NextFunction } from 'express';
 import pkg from '../package.json';
 import { loadContainer } from './container';
 import app from './app';
-import config from './config';
 import { AppError } from './common/error';
 
 loadContainer(app);
@@ -15,21 +14,6 @@ loadContainer(app);
 // relative to the current working directory.
 // This is a glob pattern.
 app.use(loadControllers('routes/*.js', { cwd: __dirname }));
-
-app.listen(app.get('port'), () => {
-  if (!config.isProduction) {
-    const route = () => `http://localhost:${config.PORT}`;
-    console.log(`Hello, your app is ready on ${route()}`);
-    console.log('To shut it down, press <CTRL> + C at any time.');
-    console.log('-------------------------------------------------------');
-    console.log(`Environment  : ${config.NODE_ENV}`);
-    console.log(`Version      : ${pkg.version}`);
-    console.log(`API Info     : ${route()}`);
-    console.log('-------------------------------------------------------');
-  } else {
-    console.log(`${pkg.name} is up and running.`);
-  }
-});
 
 // middlewares for error
 app.use((error: AppError, _req: Request, res: Response, _next: NextFunction): any => {
@@ -49,6 +33,20 @@ app.use((error: AppError, _req: Request, res: Response, _next: NextFunction): an
     });
   }
 });
+
+if (app.get('isDebug')) {
+  app.listen(app.get('port'), () => {
+    const route = () => `http://localhost:${app.get('port')}`;
+
+    console.log(`Hello, your app is ready on ${route()}`);
+    console.log('To shut it down, press <CTRL> + C at any time.');
+    console.log('-------------------------------------------------------');
+    console.log(`Environment  : debug`);
+    console.log(`Version      : ${pkg.version}`);
+    console.log(`API Info     : ${route()}`);
+    console.log('-------------------------------------------------------');
+  });
+}
 
 export const handler: Handler = serverless(app, {
   request: function (req: any, event: any, context: Context) {

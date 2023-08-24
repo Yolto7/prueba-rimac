@@ -10,8 +10,8 @@ import pkg from '../package.json';
 const app = express();
 
 // Settings
-app.set('pkg', pkg);
 app.set('port', config.PORT);
+app.set('isDebug', config.isDebug);
 app.set('json spaces', 2);
 
 // Middlewares
