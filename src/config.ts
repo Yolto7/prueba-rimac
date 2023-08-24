@@ -4,7 +4,6 @@ config({
 });
 
 const ENVIRONMENTS = {
-  DEBUG: 'debug',
   DEV: 'development',
   STG: 'staging',
   PROD: 'production',
@@ -26,7 +25,7 @@ export default {
 
   SWAPI_URL: process.env.SWAPI_URL || 'https://swapi.py4e.com/api',
 
-  isDebug: process.env.NODE_ENV === ENVIRONMENTS.DEBUG,
+  isDebug: process.env.DEBUG || false,
   isDevelopment: process.env.NODE_ENV === ENVIRONMENTS.DEV,
   isStaging: process.env.NODE_ENV === ENVIRONMENTS.STG,
   isProduction: process.env.NODE_ENV === ENVIRONMENTS.PROD,
