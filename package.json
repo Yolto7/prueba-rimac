@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "deploy": "sls deploy",
+    "remove": "sls remove",
     "dev": "sls offline start  --noPrependStageInUrl",
     "test": "jest",
     "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
