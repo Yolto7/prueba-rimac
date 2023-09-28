@@ -28,7 +28,7 @@ export default class PeopleRepository {
         gender: entity.gender,
       };
 
-      let sql = `INSERT INTO public.people(name, height, mass, hair_color, skin_color, eye_color, birth_year, gender)
+      const sql = `INSERT INTO public.people(name, height, mass, hair_color, skin_color, eye_color, birth_year, gender)
                   VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
       await this.db.query(sql, Object.values(dbEntity));
 
