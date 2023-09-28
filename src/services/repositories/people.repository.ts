@@ -1,21 +1,13 @@
-import { connectDB } from '../../database';
 import { IPeople } from './domain/people.domain';
 import { AppError, ERRORS } from '../../common/error';
+import { Pool } from 'pg';
 
 export default class PeopleRepository {
-  dbp: any;
-  pgp: any;
+  constructor(private readonly db: Pool) {}
 
   async getAll() {
     try {
-      const result: any = await connectDB();
-      this.dbp = result.dbp;
-      this.pgp = result.pgp;
-
-      let sql = `SELECT * FROM public.people`;
-      sql = this.pgp.as.format(sql);
-      const data = await this.dbp.result(sql);
-
+      const data = await this.db.query(`SELECT * FROM public.people`);
       return data.rows;
     } catch (error) {
       console.error(error);
@@ -35,19 +27,12 @@ export default class PeopleRepository {
         birth_year: entity.birth_year,
         gender: entity.gender,
       };
-      const result: any = await connectDB();
-      this.dbp = result.dbp;
-      this.pgp = result.pgp;
 
       let sql = `INSERT INTO public.people(name, height, mass, hair_color, skin_color, eye_color, birth_year, gender)
                   VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
-      sql = this.pgp.as.format(sql, Object.values(dbEntity));
-      await this.dbp.result(sql);
+      await this.db.query(sql, Object.values(dbEntity));
 
-      sql = `SELECT MAX(id_people) AS new_id FROM public.people`;
-      sql = this.pgp.as.format(sql);
-      const data = await this.dbp.result(sql);
-
+      const data = await this.db.query(`SELECT MAX(id_people) AS new_id FROM public.people`);
       return data.rows[0];
     } catch (error) {
       console.error(error);

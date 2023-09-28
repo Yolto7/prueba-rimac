@@ -1,21 +1,30 @@
-import { createContainer, asClass, InjectionMode, Lifetime } from 'awilix';
+import {
+  createContainer,
+  asClass,
+  InjectionMode,
+  Lifetime,
+  AwilixContainer,
+  asValue,
+} from 'awilix';
 import path from 'node:path';
-import { Application } from 'express';
-import { scopePerRequest } from 'awilix-express';
 
 import PeopleRepository from './services/repositories/people.repository';
 import SwapiProxy from './services/proxies/swapi.proxy';
+import { connectDB } from './database';
 
 function toFwSlash(path: string) {
   return path.replace(/\\/g, '/');
 }
 
-export const loadContainer = (app: Application) => {
-  const container = createContainer({
+export const loadContainer = () => {
+  const container: AwilixContainer = createContainer({
     injectionMode: InjectionMode.CLASSIC,
   });
 
   container.register({
+    // Database connection
+    db: asValue(connectDB()),
+
     // Repositories
     peopleRepository: asClass(PeopleRepository).scoped(),
 
@@ -33,5 +42,5 @@ export const loadContainer = (app: Application) => {
     },
   });
 
-  app.use(scopePerRequest(container));
+  return container;
 };
