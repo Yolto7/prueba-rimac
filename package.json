@@ -6,7 +6,7 @@
   "scripts": {
     "deploy": "sls deploy",
     "remove": "sls remove",
-    "dev": "nodemon -e ts --exec \"sls offline start --noPrependStageInUrl\"",
+    "dev": "sls offline start --noPrependStageInUrl",
     "test": "jest",
     "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
     "format:check": "npm run format -- --check",
