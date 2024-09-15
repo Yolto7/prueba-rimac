@@ -6,7 +6,7 @@ API used for people management.
 
 ### Create an env file
 
-Create an .env.dev file to start the configuration of your project in localhost environment inside peoples package.
+Create an .env file to start the configuration of your project in localhost environment inside people package.
 
 ```
 NODE_ENV=development
