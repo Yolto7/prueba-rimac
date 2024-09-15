@@ -1,0 +1,65 @@
+# serverless.yml
+service: knta-0013-recrt-st-00-people
+frameworkVersion: '3'
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ${opt:region, "us-east-1"}
+  stage: ${opt:stage, "dev"}
+  timeout: 30
+  apiName: ${self:service}
+  deploymentBucket:
+    name: ${self:custom.sharedBucketName}
+
+plugins:
+  - serverless-offline
+  - serverless-deployment-bucket
+  - serverless-prune-plugin
+  - serverless-plugin-monorepo
+  - serverless-dotenv-plugin
+
+package:
+  individually: true
+
+custom:
+  sharedBucketName: knta-0013-recrt-dev-00-shared
+  serverless-offline:
+    httpPort: 3000
+    noPrependStageInUrl: true
+  dotenv:
+    path: .env.${self:provider.stage}
+    exclude:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION_NAME
+      - AWS_SESSION_TOKEN
+  prune:
+    automatic: true
+    number: 3
+
+functions:
+  search:
+    handler: .build/src/index.search
+    events:
+      - http:
+          path: /people
+          method: get
+          cors: true
+
+  getSwapiAll:
+    handler: .build/src/index.getSwapiAll
+    events:
+      - http:
+          path: /people/swapi
+          method: get
+          cors: true
+
+  create:
+    handler: .build/src/index.create
+    events:
+      - http:
+          path: /people
+          method: post
+          cors: true
