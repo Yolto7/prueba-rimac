@@ -4,7 +4,7 @@ Serverless Framework with TypeScript with n layers architecture.
 
 ## Prerequisites
 
-Remember to previously have installed nodejs, serverless, postgresql and pgAdmin.
+Remember to previously have installed nodejs, serverless-framework, turborepo and mysql.
 
 - [`node.js`](https://nodejs.org)
 - [`serverless-framework`](https://github.com/serverless/serverless)
