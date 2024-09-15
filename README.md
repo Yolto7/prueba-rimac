@@ -1,6 +1,6 @@
 # Serverless - AWS Node.js, Typescript, TurboRepo, Middy and MySQL
 
-Serverless Framework with TypeScript with n layers architecture.
+Serverless Framework with TypeScript with DDD Architecture.
 
 ## Prerequisites
 
