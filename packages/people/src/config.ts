@@ -5,6 +5,7 @@ dotenv.config();
 
 export interface IConfig {
   NODE_ENV: string;
+  PORT: number;
 
   DATABASE_HOST: string;
   DATABASE_PORT: number;
@@ -24,6 +25,7 @@ export interface IConfig {
 
 export const config = {
   NODE_ENV: process.env.NODE_ENV || 'staging',
+  PORT: Number(process.env.PORT) || 3000,
 
   DATABASE_HOST: process.env.DATABASE_HOST || '',
   DATABASE_PORT: Number(process.env.DATABASE_PORT || 3306),

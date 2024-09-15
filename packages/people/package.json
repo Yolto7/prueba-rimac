@@ -20,7 +20,7 @@
     "@positiva/shared": "*",
     "awilix": "^8.0.1",
     "dotenv": "^16.4.5",
-    "mysql2": "^3.9.1",
+    "mysql2": "^3.11.3",
     "zod": "^3.23.8"
   },
   "eslintConfig": {
