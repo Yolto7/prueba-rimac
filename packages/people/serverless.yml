@@ -29,7 +29,7 @@ custom:
     httpPort: 3000
     noPrependStageInUrl: true
   dotenv:
-    path: .env.${self:provider.stage}
+    path: .env
     exclude:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
