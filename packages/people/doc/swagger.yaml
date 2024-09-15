@@ -1,7 +1,7 @@
 openapi: 3.0.3
 swagger: 3
 info:
-  title: 'PEOPLES API'
+  title: 'PEOPLE API'
   version: '1.0.0'
   description: 'API used for people management.'
   contact:
@@ -15,122 +15,142 @@ schemes:
   - 'https'
 
 paths:
-  /people:
-    /swapi:
-      get:
-        tags:
-          - 'PeopleSwapi'
-        summary: 'Get all peoples of star wars from swapi'
-        description: 'This endpoint get all peoples'
-        produces:
-          - 'application/json'
-        responses:
-          '200':
-            description: Successful operation
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/PeopleSwapiResponse'
-
-    /all:
-      get:
-        tags:
-          - 'People'
-        summary: 'Get all peoples of database'
-        description: 'This endpoint get all peoples'
-        produces:
-          - 'application/json'
-        responses:
-          '200':
-            description: Successful operation
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/PeopleResponse'
-
-    /:
-      post:
-        tags:
-          - 'People'
-        summary: 'Create a people in database'
-        description: 'This endpoint create people'
-        produces:
-          - 'application/json'
-        requestBody:
+  /people/swapi:
+    get:
+      tags:
+        - PeopleSwapi
+      summary: Get all peoples of star wars from swapi
+      description: This endpoint get all peoples
+      responses:
+        '200':
+          description: Successful operation
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/PeopleRequest'
-        responses:
-          '200':
-            description: Successful operation
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/PeopleResponse'
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PeopleSwapiResponse'
+
+  /people:
+    get:
+      tags:
+        - People
+      summary: Get all peoples of database
+      description: This endpoint get all peoples
+      responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PeopleResponse'
+                total:
+                  type: number
+                  example: 1
+                page:
+                  type: number
+                  example: 1
+                take:
+                  type: number
+                  example: 1
+                totalPage:
+                  type: number
+                  example: 1
+
+    post:
+      tags:
+        - People
+      summary: Create a people in database
+      description: This endpoint create people
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: create
+          description: payload to create
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                required: true
+              height:
+                type: integer
+                required: true
+              mass:
+                type: integer
+                required: true
+              hairColor:
+                type: string
+                required: true
+              skinColor:
+                type: string
+                required: true
+              eyeColor:
+                type: string
+                required: true
+              birthYear:
+                type: string
+                required: true
+              gender:
+                type: string
+                required: true
+      responses:
+        '200':
+          description: Successful operation
 
 components:
   schemas:
     PeopleSwapiResponse:
-      type: 'object'
+      type: object
       properties:
         nombre:
-          type: 'string'
+          type: string
         altura:
-          type: 'integer'
+          type: integer
         masa:
-          type: 'integer'
-        color_pelo:
-          type: 'string'
-        color_piel:
-          type: 'string'
-        color_ojo:
-          type: 'string'
+          type: integer
+        colorPelo:
+          type: string
+        colorPiel:
+          type: string
+        colorOjo:
+          type: string
         aniversario:
-          type: 'string'
+          type: string
         genero:
-          type: 'string'
-        fecha_fundado:
-          type: 'string'
-
-    PeopleRequest:
-      type: 'object'
-      properties:
-        name:
           type: string
-          required: true
-        height:
-          type: integer
-          required: true
-        mass:
-          type: integer
-          required: true
-        hair_color:
+        fechaFundado:
           type: string
-          required: true
-        skin_color:
-          type: string
-          required: true
-        eye_color:
-          type: string
-          required: true
-        birth_year:
-          type: string
-          required: true
-        gender:
-          type: string
-          required: true
 
     PeopleResponse:
-      type: 'object'
+      type: object
       properties:
-        id_people: integer
-        name: string
-        height: integer
-        mass: integer
-        hair_color: string
-        skin_color: string
-        eye_color: string
-        birth_year: string
-        gender: string
-        createdat: string
+        id:
+          type: string
+        name:
+          type: string
+        height:
+          type: integer
+        mass:
+          type: integer
+        hairColor:
+          type: string
+        skinColor:
+          type: string
+        eyeColor:
+          type: string
+        birthYear:
+          type: string
+        gender:
+          type: string
+        createdAt:
+          type: string

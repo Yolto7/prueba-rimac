@@ -15,6 +15,7 @@ interface PeoplePresentation {
   eyeColor: string;
   birthYear: string;
   gender: string;
+  createdAt: string;
 }
 
 export class PeopleMapper {
@@ -29,6 +30,7 @@ export class PeopleMapper {
         eyeColor: input.eyeColor,
         birthYear: input.birthYear,
         gender: input.gender,
+        createdAt: input.createdAt,
       },
       new UniqueEntityId(input.id)
     );
@@ -61,6 +63,7 @@ export class PeopleMapper {
       eyeColor: people.eyeColor,
       birthYear: people.birthYear,
       gender: people.gender,
+      createdAt: people.newEntryAudit.createdAt as string,
     };
   }
 }

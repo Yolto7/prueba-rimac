@@ -44,7 +44,8 @@ export default class PeopleMysqlRepository implements PeopleRepository {
                     skinColor,
                     eyeColor, 
                     birthYear, 
-                    gender
+                    gender,
+                    DATE_FORMAT(createdAt, "%Y-%m-%d %H:%i:%s") as createdAt
                 FROM ${this.tableName}
                 ${query.filter} 
                 ${query.sort} 

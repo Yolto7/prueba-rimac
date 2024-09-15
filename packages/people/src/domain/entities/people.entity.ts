@@ -92,6 +92,7 @@ export class People extends AggregateRoot<PeopleProps> {
       eyeColor: PeopleEyecolor.create(props.eyeColor),
       birthYear: PeopleBirthyear.create(props.birthYear),
       gender: PeopleGender.create(props.gender),
+      createdAt: props.createdAt,
     };
 
     return new People(defaultProps, id);
