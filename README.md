@@ -41,7 +41,7 @@ CREATE TABLE people (
 
 - step 1: Install all dependencies with the 'npm install' command.
 - step 2: Read the README.md file of the people package.
-- step 3: Create a debug script (launch.json) with the following code
+- step 3: Create a debug script (launch.json) with the following code to run the project in debug mode.
 
 ```
 {
