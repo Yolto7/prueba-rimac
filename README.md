@@ -8,8 +8,8 @@ Remember to previously have installed nodejs, serverless, postgresql and pgAdmin
 
 - [`node.js`](https://nodejs.org)
 - [`serverless-framework`](https://github.com/serverless/serverless)
-- [`postgresql`](https://www.postgresql.org/docs/)
-- [`pgAdmin`](https://www.pgadmin.org/)
+- [`turborepo`](https://turbo.build/)
+- [`mysql`](https://sidorares.github.io/node-mysql2/docs)
 
 Run the sql script inside the database folder, so that it creates the database and its corresponding table.
 
