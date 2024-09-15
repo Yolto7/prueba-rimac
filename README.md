@@ -51,10 +51,10 @@ CREATE TABLE people (
       "type": "node",
       "request": "launch",
       "name": "Debug Serverless Offline",
-      "program": "${workspaceFolder}/packages/{{package_name}}/src/index.ts",
-      "outFiles": ["${workspaceFolder}/packages/{{package_name}}/.build/**/*.js"],
+      "program": "${workspaceFolder}/packages/people/src/index.ts",
+      "outFiles": ["${workspaceFolder}/packages/people/.build/**/*.js"],
       "runtimeExecutable": "${workspaceFolder}/debug.sh",
-      "runtimeArgs": ["{{package_name}}"],
+      "runtimeArgs": ["people"],
       "env": {
         "NODE_ENV": "debug"
       }
