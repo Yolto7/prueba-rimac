@@ -1,6 +1,6 @@
 import { RequestAsyncContext, AsyncContext } from '../../utils/context';
 import { RECRUITMENT_CONSTANTS } from '../../utils/constants';
-import { UniqueEntityId, UniqueId } from '../valueObject/uniqueEntityId';
+import { UniqueEntityId, UniqueId } from '../entity/uniqueEntityId';
 
 export interface IntegrationEventInput {
   entity: string;

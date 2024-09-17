@@ -1,5 +1,5 @@
 import { formatDate } from '../../utils/helpers/date';
-import { UniqueEntityId } from '../valueObject/uniqueEntityId';
+import { UniqueEntityId } from './uniqueEntityId';
 
 export interface AuditEntry {
   createdAt?: string;

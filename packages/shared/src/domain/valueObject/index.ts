@@ -1,8 +1,6 @@
 import { AppError, ErrorTypes } from '../error/index';
 
-export type Primitives = string | number | boolean | Date;
-
-export abstract class ValueObject<T extends Primitives> {
+export abstract class ValueObject<T> {
   private readonly _value: T;
   protected isModified: boolean;
 

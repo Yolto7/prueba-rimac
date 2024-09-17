@@ -28,7 +28,7 @@ export * from './domain/valueObject/enumValueObject';
 export * from './domain/valueObject/numberValueObject';
 export * from './domain/valueObject/stringValueObject';
 export * from './domain/valueObject/booleanValueObject';
-export * from './domain/valueObject/uniqueEntityId';
+export * from './domain/entity/uniqueEntityId';
 export * from './domain/valueObject/arrayValueObject';
 export * from './domain/valueObject/objectValueObject';
 
