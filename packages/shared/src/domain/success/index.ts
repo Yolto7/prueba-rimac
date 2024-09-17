@@ -12,6 +12,7 @@ export class AppSuccess {
     isBase64Encoded: false,
     body: undefined,
   };
+
   static status(statusCode = 200) {
     this.response.statusCode = statusCode;
     return this;
