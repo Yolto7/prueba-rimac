@@ -19,7 +19,7 @@ export class Filter {
     const operator = values.get('operator');
     const value = values.get('value');
 
-    if (!field || !operator || !value) {
+    if (!field || !operator || value === null || value === undefined) {
       throw new AppError(ErrorTypes.BAD_REQUEST, 'The filter is invalid', 'ERR_INVALID_FILTER');
     }
 
