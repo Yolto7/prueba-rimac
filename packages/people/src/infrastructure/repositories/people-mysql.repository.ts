@@ -13,7 +13,7 @@ import {
 
 import { IConfig } from '../../config';
 import { People } from '../../domain/entities/people.entity';
-import { PeopleMapper } from '../mappers/people.mapper';
+import { PeopleDomain, PeopleMapper } from '../mappers/people.mapper';
 import {
   FilterResponse,
   MatchingInput,
@@ -64,7 +64,7 @@ export default class PeopleMysqlRepository implements PeopleRepository {
         total = pagination[0]?.total || 0;
 
       return {
-        people: rows.map((e) => PeopleMapper.toDomain(e)),
+        people: rows.map((e) => PeopleMapper.toDomain(e as PeopleDomain)),
         total,
         page: query.page,
         take: query.take,

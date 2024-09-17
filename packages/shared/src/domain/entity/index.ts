@@ -1,10 +1,21 @@
+import { formatDate } from '../../utils/helpers/date';
 import { UniqueEntityId } from '../valueObject/uniqueEntityId';
 
-const isEntity = (v: unknown): v is Entity<unknown> => {
+export interface AuditEntry {
+  createdAt?: string;
+  createdBy?: string;
+  updatedAt?: string;
+  updatedBy?: string;
+  deletedAt?: string;
+  deletedBy?: string;
+  deleted?: boolean;
+}
+
+const isEntity = (v: unknown): v is Entity<unknown extends AuditEntry ? {} : AuditEntry> => {
   return v instanceof Entity;
 };
 
-export abstract class Entity<T> {
+export abstract class Entity<T extends AuditEntry> {
   protected readonly uniqueId: UniqueEntityId;
   protected readonly props: T;
 
@@ -15,6 +26,26 @@ export abstract class Entity<T> {
 
   get id() {
     return this.uniqueId.valueId;
+  }
+  get newEntryAudit() {
+    return {
+      createdAt: this.props.createdAt,
+      createdBy: this.props.createdBy,
+      deleted: this.props.deleted,
+    };
+  }
+  get updateEntryAudit() {
+    return {
+      updatedAt: this.props.updatedAt,
+      updatedBy: this.props.updatedBy,
+    };
+  }
+  get deleteEntryAudit() {
+    return {
+      deletedAt: this.props.deletedAt,
+      deletedBy: this.props.deletedBy,
+      deleted: this.props.deleted,
+    };
   }
 
   equals(object?: Entity<T>): boolean {
@@ -29,20 +60,22 @@ export abstract class Entity<T> {
     return this.uniqueId.valueId === object.id;
   }
 
-  protected abstract hasUpdates(): boolean;
-  protected abstract getUpdates(): unknown;
+  hasUpdates(): boolean {
+    return Object.values(this.props).some((valueObject) => valueObject.isModified);
+  }
 
-  protected abstract createNewEntryAudit(username: string): void;
-  protected abstract createUpdateEntryAudit(username: string): void;
-  protected abstract createDeleteEntryAudit(username: string): void;
-}
-
-export interface AuditEntry {
-  createdAt?: string;
-  createdBy?: string;
-  updatedAt?: string;
-  updatedBy?: string;
-  deletedAt?: string;
-  deletedBy?: string;
-  deleted?: boolean;
+  createNewEntryAudit(username: string) {
+    this.props.createdAt = formatDate(new Date());
+    this.props.createdBy = username;
+    this.props.deleted = false;
+  }
+  createUpdateEntryAudit(username: string) {
+    this.props.updatedAt = formatDate(new Date());
+    this.props.updatedBy = username;
+  }
+  createDeleteEntryAudit(username: string) {
+    this.props.deletedAt = formatDate(new Date());
+    this.props.deletedBy = username;
+    this.props.deleted = true;
+  }
 }

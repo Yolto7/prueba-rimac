@@ -6,7 +6,7 @@ import { Logger } from '../../domain/logger';
 export class ErrorInterceptor {
   constructor(private readonly logger: Logger) {}
 
-  use(): MiddlewareObj<unknown> {
+  use(): MiddlewareObj {
     return {
       onError: ({ error }: any) => {
         this.logger.error(error);

@@ -1,4 +1,4 @@
-import { AggregateRoot, AuditEntry, UniqueEntityId, formatDate } from '@positiva/shared';
+import { AggregateRoot, AuditEntry, UniqueEntityId } from '@positiva/shared';
 
 import { PeopleName } from './valueObjects/name.vo';
 import { PeopleHeight } from './valueObjects/height.vo';
@@ -61,27 +61,6 @@ export class People extends AggregateRoot<PeopleProps> {
     return this.props.gender.value;
   }
 
-  get newEntryAudit() {
-    return {
-      createdAt: this.props.createdAt,
-      createdBy: this.props.createdBy,
-      deleted: this.props.deleted,
-    };
-  }
-  get updateEntryAudit() {
-    return {
-      updatedAt: this.props.updatedAt,
-      updatedBy: this.props.updatedBy,
-    };
-  }
-  get deleteEntryAudit() {
-    return {
-      deletedAt: this.props.deletedAt,
-      deletedBy: this.props.deletedBy,
-      deleted: this.props.deleted,
-    };
-  }
-
   static create(props: PeopleCreateProps, id?: UniqueEntityId): People {
     const defaultProps: PeopleProps = {
       name: PeopleName.create(props.name),
@@ -98,33 +77,14 @@ export class People extends AggregateRoot<PeopleProps> {
     return new People(defaultProps, id);
   }
 
-  hasUpdates() {
-    return Object.values(this.props).some((valueObject) => valueObject.isModified);
-  }
+  // getUpdates() {
+  //   const updates: Partial<PeopleCreateProps> = {};
+  //   for (const [key, value] of Object.entries(this.props)) {
+  //     if (value.isModified) {
+  //       updates[key as keyof PeopleCreateProps] = value.value;
+  //     }
+  //   }
 
-  getUpdates() {
-    const updates: Partial<PeopleCreateProps> = {};
-    for (const [key, value] of Object.entries(this.props)) {
-      if (value.isModified) {
-        updates[key as keyof PeopleCreateProps] = value.value;
-      }
-    }
-
-    return updates;
-  }
-
-  createNewEntryAudit(username: string) {
-    this.props.createdAt = formatDate(new Date());
-    this.props.createdBy = username;
-    this.props.deleted = false;
-  }
-  createUpdateEntryAudit(username: string) {
-    this.props.updatedAt = formatDate(new Date());
-    this.props.updatedBy = username;
-  }
-  createDeleteEntryAudit(username: string) {
-    this.props.deletedAt = formatDate(new Date());
-    this.props.deletedBy = username;
-    this.props.deleted = true;
-  }
+  //   return updates;
+  // }
 }

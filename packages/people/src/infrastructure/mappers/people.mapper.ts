@@ -1,6 +1,10 @@
 import { UniqueEntityId, UniqueId } from '@positiva/shared';
 import { People, PeopleCreateProps } from '../../domain/entities/people.entity';
 
+export interface PeopleDomain extends PeopleCreateProps {
+  id: UniqueId;
+}
+
 interface PeopleCreatePersistence extends PeopleCreateProps {
   id: UniqueId;
 }
@@ -19,7 +23,7 @@ interface PeoplePresentation {
 }
 
 export class PeopleMapper {
-  static toDomain(input: any) {
+  static toDomain(input: PeopleDomain) {
     return People.create(
       {
         name: input.name,
