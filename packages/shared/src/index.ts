@@ -1,6 +1,8 @@
 // Domain
 export * from './domain/aggregate';
 
+export * from './domain/config';
+
 export * from './domain/criteria';
 export * from './domain/criteria/converter';
 export * from './domain/criteria/filters';

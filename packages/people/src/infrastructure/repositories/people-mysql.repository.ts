@@ -11,7 +11,7 @@ import {
   UserAuthProvider,
 } from '@positiva/shared';
 
-import { IConfig } from '../../config';
+import { Config } from '../../config';
 import { People } from '../../domain/entities/people.entity';
 import { PeopleDomain, PeopleMapper } from '../mappers/people.mapper';
 import {
@@ -24,7 +24,7 @@ export default class PeopleMysqlRepository implements PeopleRepository {
   private readonly tableName: string;
 
   constructor(
-    private readonly config: IConfig,
+    private readonly config: Config,
     private readonly logger: Logger,
     private readonly db: MysqlClientFactory,
     private readonly criteriaConverter: CriteriaConverter,

@@ -10,7 +10,7 @@ import {
   AxiosInstance,
 } from '@positiva/shared';
 
-import { IConfig, config } from './config';
+import { Config, config } from './config';
 
 import PeopleMysqlRepository from './infrastructure/repositories/people-mysql.repository';
 import PeopleDomainService from './domain/services/people.domain.service';
@@ -20,7 +20,7 @@ import PeopleController from './presentation/private/controllers/people.controll
 import { SwapiProxyAdapter } from './infrastructure/adapters/swapiProxy-axios.adapter';
 
 interface Cradle {
-  config: IConfig;
+  config: Config;
   db: MysqlClientFactory;
   axios: AxiosInstance;
   logger: Logger;

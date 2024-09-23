@@ -1,26 +1,12 @@
-import { RECRUITMENT_CONSTANTS } from '@positiva/shared';
+import { ConfigBase, RECRUITMENT_CONSTANTS } from '@positiva/shared';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-export interface IConfig {
-  NODE_ENV: string;
-  PORT: number;
-
-  DATABASE_HOST: string;
-  DATABASE_PORT: number;
-  DATABASE_USER: string;
-  DATABASE_PASSWORD: string;
-  DATABASE_NAME: string;
-
+export interface Config extends ConfigBase {
   PEOPLE_TABLE_NAME: string;
 
   SWAPI_API_BASE_URL: string;
-
-  isDebug: boolean;
-  isDevelopment: boolean;
-  isStaging: boolean;
-  isProduction: boolean;
 }
 
 export const config = {

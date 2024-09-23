@@ -1,13 +1,13 @@
 import { AppError, ErrorTypes, AxiosClientFactory, Logger } from '@positiva/shared';
 
-import { IConfig } from '../../config';
+import { Config } from '../../config';
 import { SwapiPeople, SwapiProxyPort } from '../../domain/ports/swapiProxy.port';
 
 export class SwapiProxyAdapter implements SwapiProxyPort {
   private axios;
 
   constructor(
-    private readonly config: IConfig,
+    private readonly config: Config,
     private readonly logger: Logger
   ) {
     this.axios = AxiosClientFactory.getClient({
