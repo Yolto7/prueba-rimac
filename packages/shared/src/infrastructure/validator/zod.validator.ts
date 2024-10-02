@@ -3,7 +3,7 @@ import { SafeParseReturnType, ZodIssueBase } from 'zod';
 import { AppError, ErrorTypes } from '../../domain/error';
 
 export abstract class ZodValidator {
-  static validateSchema<T>(response: SafeParseReturnType<unknown, T>): T {
+  static validateSchema<T = any>(response: SafeParseReturnType<unknown, T>): T {
     if (!response.success) {
       throw new AppError(
         ErrorTypes.BAD_REQUEST,

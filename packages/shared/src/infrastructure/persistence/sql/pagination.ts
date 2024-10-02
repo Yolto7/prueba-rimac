@@ -1,5 +1,11 @@
-export function sqlPaginationResolver(page?: string, take?: string) {
-  const pagination: { offset?: number; limit: number; page: number } = {
+export interface Pagination {
+  page: number;
+  limit: number;
+  offset?: number;
+}
+
+export function sqlPaginationResolver(page?: string, take?: string): Pagination {
+  const pagination: Pagination = {
     page: 1,
     limit: 50,
   };

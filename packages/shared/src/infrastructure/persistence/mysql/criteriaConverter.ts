@@ -49,15 +49,12 @@ export class MysqlCriteriaConverter implements CriteriaConverter {
   }
 
   convert<MysqlConverterResult>(criteria: Criteria): MysqlConverterResult {
-    const { page, offset, limit } = sqlPaginationResolver(criteria.page, criteria.take);
-    const { filters, values: filterValues } = this.generateFilter(criteria.filters);
-
-    const values = [...filterValues, limit];
-    offset && values.push(offset);
+    const { page, offset, limit } = sqlPaginationResolver(criteria.page, criteria.take),
+      { filters, values: filterValues } = this.generateFilter(criteria.filters);
 
     return {
       filter: criteria.hasFilters() ? filters : '',
-      values,
+      values: [...filterValues, limit, ...(offset ? [offset] : [])],
       sort: criteria.order.hasOrder() ? this.generateSort(criteria.order) : '',
       pagination: this.generatePagination(offset),
       page: page,
