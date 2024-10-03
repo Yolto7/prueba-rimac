@@ -1,6 +1,6 @@
 # Serverless - AWS Node.js, Typescript, TurboRepo, Middy and MySQL
 
-Serverless Framework with TypeScript with DDD Architecture.
+Serverless Framework with TypeScript with Clean Arquitecture and DDD Architecture.
 
 ## Prerequisites
 
@@ -64,6 +64,7 @@ CREATE TABLE people (
 ```
 
 - step 4: Run the 'npm run build' command to launch the application locally.
-- step 5: Run the 'npm run test' command to execute the application tests.
+
+The swagger file is located in the path: packages/people/doc
 
 Happy Code 🎸
