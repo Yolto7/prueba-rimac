@@ -9,8 +9,6 @@ provider:
   stage: ${opt:stage, "dev"}
   timeout: 30
   apiName: ${self:service}
-  deploymentBucket:
-    name: ${self:custom.sharedBucketName}
 
 plugins:
   - serverless-offline
@@ -23,7 +21,6 @@ package:
   individually: true
 
 custom:
-  sharedBucketName: knta-0013-recrt-dev-00-shared
   serverless-offline:
     httpPort: ${env:PORT, 3000}
     noPrependStageInUrl: true
