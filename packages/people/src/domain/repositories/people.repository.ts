@@ -1,4 +1,4 @@
-import { Criteria } from '@positiva/shared';
+import { Criteria } from '@rimac/shared';
 
 import { People } from '../entities/people.entity';
 

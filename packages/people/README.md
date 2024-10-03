@@ -1,4 +1,4 @@
-# Positiva Api.People
+# rimac Api.People
 
 API used for people management.
 

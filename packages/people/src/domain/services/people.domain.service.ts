@@ -9,7 +9,7 @@ import {
   QueryInput,
   UniqueId,
   filterDeleted,
-} from '@positiva/shared';
+} from '@rimac/shared';
 
 import { PeopleRepository } from '../repositories/people.repository';
 

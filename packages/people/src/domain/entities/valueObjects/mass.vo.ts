@@ -1,4 +1,4 @@
-import { AppError, ErrorTypes, NumberValueObject } from '@positiva/shared';
+import { AppError, ErrorTypes, NumberValueObject } from '@rimac/shared';
 
 export class PeopleMass extends NumberValueObject {
   private constructor(value: number) {

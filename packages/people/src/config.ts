@@ -1,4 +1,4 @@
-import { ConfigBase, RECRUITMENT_CONSTANTS } from '@positiva/shared';
+import { ConfigBase, RECRUITMENT_CONSTANTS } from '@rimac/shared';
 import dotenv from 'dotenv';
 
 dotenv.config();

@@ -1,4 +1,4 @@
-import { AggregateRoot, AuditEntry, UniqueEntityId } from '@positiva/shared';
+import { AggregateRoot, AuditEntry, UniqueEntityId } from '@rimac/shared';
 
 import { PeopleName } from './valueObjects/name.vo';
 import { PeopleHeight } from './valueObjects/height.vo';

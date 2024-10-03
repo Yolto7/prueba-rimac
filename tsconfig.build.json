@@ -23,8 +23,7 @@
     "target": "es2021",
     "resolveJsonModule": true,
     "paths": {
-      "@positiva/people/*": ["packages/people/src/*"],
-      "@positiva/shared/*": ["packages/shared/src/*"]
+      "@rimac/shared/*": ["packages/shared/src/*"]
     }
   },
   "exclude": ["node_modules", ".build", "**/*.spec.ts"]

@@ -1,3 +1,3 @@
-# Positiva Shared Package
+# Rimac Shared Package
 
 Package used for functions and classes shared between packages.

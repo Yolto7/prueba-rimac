@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
 
-import { AppSuccess } from '@positiva/shared';
+import { AppSuccess } from '@rimac/shared';
 
 import PeopleQueriesService from '../../../application/services/queries/people.query.service';
 import PeopleValidator from '../../validators/people.validator';

@@ -9,7 +9,7 @@ import {
   MysqlConverterResult,
   RECRUITMENT_CONSTANTS,
   UserAuthProvider,
-} from '@positiva/shared';
+} from '@rimac/shared';
 
 import { Config } from '../../config';
 import { People } from '../../domain/entities/people.entity';
@@ -18,7 +18,7 @@ import {
   FilterResponse,
   MatchingInput,
   PeopleRepository,
-} from '@positiva/people/domain/repositories/people.repository';
+} from '../../domain/repositories/people.repository';
 
 export default class PeopleMysqlRepository implements PeopleRepository {
   private readonly tableName: string;

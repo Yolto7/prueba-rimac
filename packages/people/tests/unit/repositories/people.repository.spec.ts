@@ -6,7 +6,7 @@ import {
   OrderTypes,
   Query,
   QueryInput,
-} from '@positiva/shared';
+} from '@rimac/shared';
 
 import { loadContainer } from '../../../src/container';
 import { People } from '../../../src/domain/entities/people.entity';

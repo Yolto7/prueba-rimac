@@ -1,4 +1,4 @@
-import { MiddyMiddleware } from '@positiva/shared';
+import { MiddyMiddleware } from '@rimac/shared';
 
 import { loadContainer } from './container';
 

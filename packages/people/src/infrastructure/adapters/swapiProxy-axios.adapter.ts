@@ -1,4 +1,4 @@
-import { AppError, ErrorTypes, AxiosClientFactory, Logger } from '@positiva/shared';
+import { AppError, ErrorTypes, AxiosClientFactory, Logger } from '@rimac/shared';
 
 import { Config } from '../../config';
 import { SwapiPeople, SwapiProxyPort } from '../../domain/ports/swapiProxy.port';

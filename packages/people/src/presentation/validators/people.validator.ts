@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { ZodValidator } from '@positiva/shared';
+import { ZodValidator } from '@rimac/shared';
 
 import { PeopleCreateInput } from '../../application/services/commands/people-create.command.service';
 

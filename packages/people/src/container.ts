@@ -8,7 +8,7 @@ import {
   MysqlCriteriaConverter,
   ErrorInterceptor,
   AxiosInstance,
-} from '@positiva/shared';
+} from '@rimac/shared';
 
 import { Config, config } from './config';
 

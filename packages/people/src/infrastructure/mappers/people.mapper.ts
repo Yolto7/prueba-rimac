@@ -1,4 +1,4 @@
-import { UniqueEntityId, UniqueId } from '@positiva/shared';
+import { UniqueEntityId, UniqueId } from '@rimac/shared';
 import { People, PeopleCreateProps } from '../../domain/entities/people.entity';
 
 export interface PeopleDomain extends PeopleCreateProps {

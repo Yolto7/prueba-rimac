@@ -1,4 +1,4 @@
-import { AppError, ErrorTypes, StringValueObject } from '@positiva/shared';
+import { AppError, ErrorTypes, StringValueObject } from '@rimac/shared';
 
 export class PeopleEyecolor extends StringValueObject {
   private constructor(value: string) {
