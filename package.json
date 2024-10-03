@@ -8,7 +8,6 @@
   "scripts": {
     "build": "turbo build --parallel",
     "build:shared": "turbo build --filter=shared",
-    "test": "turbo test --parallel",
     "compliance": "turbo compliance --parallel"
   },
   "keywords": [],
