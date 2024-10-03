@@ -67,4 +67,12 @@ CREATE TABLE people (
 
 The swagger file is located in the path: packages/people/doc
 
+## Deploy script
+
+You must be in the root of the project and run the following command:
+
+```
+./deploy.sh -p people -s dev
+```
+
 Happy Code 🎸
