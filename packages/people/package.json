@@ -24,11 +24,6 @@
     "mysql2": "^3.11.3",
     "zod": "^3.23.8"
   },
-  "devDependencies": {
-    "@types/jest": "^27.5.2",
-    "jest": "^27.5.1",
-    "ts-jest": "^27.1.5"
-  },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -75,19 +70,13 @@
     "vueIndentScriptAndStyle": false
   },
   "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "tests/unit",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "testEnvironment": "node"
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/tests/",
+      "/.build/"
+    ]
   }
 }
