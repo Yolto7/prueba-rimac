@@ -17,7 +17,7 @@ type Handler = (event: APIGatewayProxyEvent) => Promise<unknown>;
 export class MiddyMiddleware {
   constructor() {}
 
-  static use(handler: Handler, middlewares: MiddlewareObj<unknown>[] = []) {
+  static use(handler: Handler, middlewares: MiddlewareObj<any>[] = []) {
     return middy((event: APIGatewayProxyEvent, context: MiddyLambdaContext) => {
       AsyncContext.set(RECRUITMENT_CONSTANTS.ASYNCCONTEXT.REQUEST, context.asyncContext);
       return handler(event);
