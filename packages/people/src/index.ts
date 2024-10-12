@@ -2,15 +2,34 @@ import { MiddyMiddleware } from '@rimac/shared';
 
 import { loadContainer } from './container';
 
-const container = loadContainer(),
-  middlewares = [container.cradle.errorInterceptor.use()],
-  peopleController = container.cradle.peopleController;
+const setupContainer = async () => {
+  const container = await loadContainer(),
+    middlewares = [container.cradle.errorInterceptor.use()],
+    peopleController = container.cradle.peopleController;
+
+  return { peopleController, middlewares };
+};
 
 export = {
-  search: MiddyMiddleware.use(peopleController.search.bind(peopleController), middlewares),
-  getSwapiAll: MiddyMiddleware.use(
-    peopleController.getSwapiAll.bind(peopleController),
-    middlewares
-  ),
-  create: MiddyMiddleware.use(peopleController.create.bind(peopleController), middlewares),
+  search: async (event: any, context: any) => {
+    const { peopleController, middlewares } = await setupContainer();
+    return MiddyMiddleware.use(peopleController.search.bind(peopleController), middlewares)(
+      event,
+      context
+    );
+  },
+  getSwapiAll: async (event: any, context: any) => {
+    const { peopleController, middlewares } = await setupContainer();
+    return MiddyMiddleware.use(peopleController.getSwapiAll.bind(peopleController), middlewares)(
+      event,
+      context
+    );
+  },
+  create: async (event: any, context: any) => {
+    const { peopleController, middlewares } = await setupContainer();
+    return MiddyMiddleware.use(peopleController.create.bind(peopleController), middlewares)(
+      event,
+      context
+    );
+  },
 };

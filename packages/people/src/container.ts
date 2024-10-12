@@ -44,7 +44,7 @@ interface Cradle {
   peopleController: PeopleController;
 }
 
-export const loadContainer = () => {
+export const loadContainer = async (): Promise<AwilixContainer<Cradle>> => {
   const container = createContainer<Cradle>({
     injectionMode: InjectionMode.CLASSIC,
   });
