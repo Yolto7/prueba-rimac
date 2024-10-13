@@ -15,7 +15,7 @@ const handler = async <T>(
     controller = getPropertyValueByType<Cradle, T>(container.cradle, type);
 
   return MiddyMiddleware.use(
-    (controller[method] as unknown as (...args: any[]) => any).bind(controller),
+    (controller[method] as (...args: any[]) => any).bind(controller),
     middlewares
   )(event, context);
 };
