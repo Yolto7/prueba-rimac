@@ -16,10 +16,11 @@ import PeopleMysqlRepository from './infrastructure/repositories/people-mysql.re
 import PeopleDomainService from './domain/services/people.domain.service';
 import PeopleQueriesService from './application/services/queries/people.query.service';
 import PeopleCreateCommandService from './application/services/commands/people-create.command.service';
-import PeopleController from './presentation/private/controllers/people.controller';
+import PeoplePrivateController from './presentation/private/controllers/people.controller';
+import PeoplePublicController from './presentation/public/controllers/people.controller';
 import { SwapiProxyAdapter } from './infrastructure/adapters/swapiProxy-axios.adapter';
 
-interface Cradle {
+export interface Cradle {
   config: Config;
   db: MysqlClientFactory;
   axios: AxiosInstance;
@@ -41,7 +42,8 @@ interface Cradle {
 
   swapiProxyAdapter: SwapiProxyAdapter;
 
-  peopleController: PeopleController;
+  peoplePrivateController: PeoplePrivateController;
+  peoplePublicController: PeoplePublicController;
 }
 
 export const loadContainer = async (): Promise<AwilixContainer<Cradle>> => {
@@ -75,7 +77,6 @@ export const loadContainer = async (): Promise<AwilixContainer<Cradle>> => {
       .inject((container: AwilixContainer) => ({
         criteriaConverter: container.cradle.mysqlCriteriaConverter,
       }))
-      .singleton()
       .scoped(),
 
     // Domain Services
@@ -83,7 +84,6 @@ export const loadContainer = async (): Promise<AwilixContainer<Cradle>> => {
       .inject((container: AwilixContainer) => ({
         peopleRepository: container.cradle.peopleMysqlRepository,
       }))
-      .singleton()
       .scoped(),
 
     // Application Services
@@ -92,21 +92,20 @@ export const loadContainer = async (): Promise<AwilixContainer<Cradle>> => {
         peopleRepository: container.cradle.peopleMysqlRepository,
         swapiProxyPort: container.cradle.swapiProxyAdapter,
       }))
-      .singleton()
       .scoped(),
 
     peopleCreateCommandService: asClass(PeopleCreateCommandService)
       .inject((container: AwilixContainer) => ({
         peopleRepository: container.cradle.peopleMysqlRepository,
       }))
-      .singleton()
       .scoped(),
 
     // Infrastructure Adapters
-    swapiProxyAdapter: asClass(SwapiProxyAdapter).transient().scoped(),
+    swapiProxyAdapter: asClass(SwapiProxyAdapter).transient(),
 
     // Presentation Controllers
-    peopleController: asClass(PeopleController).singleton().scoped(),
+    peoplePrivateController: asClass(PeoplePrivateController).scoped(),
+    peoplePublicController: asClass(PeoplePublicController).scoped(),
   });
 
   container.register({

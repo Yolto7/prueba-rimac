@@ -12,7 +12,7 @@ export interface MiddyLambdaContext extends Context {
   asyncContext: RequestAsyncContext;
 }
 
-type Handler = (event: APIGatewayProxyEvent) => Promise<unknown>;
+export type Handler = (event: APIGatewayProxyEvent) => Promise<unknown>;
 
 export class MiddyMiddleware {
   constructor() {}

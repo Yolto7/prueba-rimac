@@ -7,7 +7,7 @@ import PeopleValidator from '../../validators/people.validator';
 import PeopleCreateCommandService from '../../../application/services/commands/people-create.command.service';
 import { PeopleMapper } from '../../../infrastructure/mappers/people.mapper';
 
-export default class PeopleController {
+export default class PeoplePrivateController {
   constructor(
     private readonly peopleQueriesService: PeopleQueriesService,
     private readonly peopleCreateCommandService: PeopleCreateCommandService
