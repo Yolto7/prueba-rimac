@@ -1,4 +1,9 @@
-import { getPropertyValueByType, MiddyLambdaContext, MiddyMiddleware } from '@rimac/shared';
+import {
+  getMethodsByPrototype,
+  getPropertyValueByType,
+  MiddyLambdaContext,
+  MiddyMiddleware,
+} from '@rimac/shared';
 
 import { Cradle, loadContainer } from './container';
 import PeoplePrivateController from './presentation/private/controllers/people.controller';
@@ -20,17 +25,34 @@ const handler = async <T>(
   )(event, context);
 };
 
-// const privateMethods = getMethodNames<PeoplePrivateController>(PeoplePrivateController.prototype),
-//   publicMethods = getMethodNames<PeoplePublicController>(PeoplePublicController.prototype);
+const privateMethods = getMethodsByPrototype<PeoplePrivateController>(
+    PeoplePrivateController.prototype
+  ),
+  publicMethods = getMethodsByPrototype<PeoplePublicController>(PeoplePublicController.prototype);
 
 export = {
   // PRIVATE
   search: (event: any, context: MiddyLambdaContext) =>
-    handler<PeoplePrivateController>(event, context, PeoplePrivateController, 'search'),
+    handler<PeoplePrivateController>(
+      event,
+      context,
+      PeoplePrivateController,
+      privateMethods.search
+    ),
   create: (event: any, context: MiddyLambdaContext) =>
-    handler<PeoplePrivateController>(event, context, PeoplePrivateController, 'create'),
+    handler<PeoplePrivateController>(
+      event,
+      context,
+      PeoplePrivateController,
+      privateMethods.create
+    ),
 
   // PUBLIC
   getSwapiAll: (event: any, context: MiddyLambdaContext) =>
-    handler<PeoplePublicController>(event, context, PeoplePublicController, 'getSwapiAll'),
+    handler<PeoplePublicController>(
+      event,
+      context,
+      PeoplePublicController,
+      publicMethods.getSwapiAll
+    ),
 };

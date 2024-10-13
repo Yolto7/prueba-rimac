@@ -14,12 +14,14 @@ export function translateKey(value: string): string {
   return keys[value];
 }
 
-export function getMethodNames<T>(obj: T): { [key: string]: keyof T } {
+export function getMethodsByPrototype<T>(prototype: T): { [key: string]: keyof T } {
   const methods: { [key: string]: keyof T } = {};
 
-  Object.getOwnPropertyNames(Object.getPrototypeOf(obj)).filter(
-    (prop) => typeof obj[prop as keyof T] === 'function' && prop !== 'constructor'
-  );
+  Object.getOwnPropertyNames(prototype)
+    .filter((prop) => typeof prototype[prop as keyof T] === 'function' && prop !== 'constructor')
+    .forEach((methodName) => {
+      methods[methodName] = methodName as keyof T;
+    });
 
   return methods;
 }
