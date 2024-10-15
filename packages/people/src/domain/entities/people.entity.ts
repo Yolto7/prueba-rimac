@@ -77,14 +77,15 @@ export class People extends AggregateRoot<PeopleProps> {
     return new People(defaultProps, id);
   }
 
-  // getUpdates() {
-  //   const updates: Partial<PeopleCreateProps> = {};
-  //   for (const [key, value] of Object.entries(this.props)) {
-  //     if (value.isModified) {
-  //       updates[key as keyof PeopleCreateProps] = value.value;
-  //     }
-  //   }
+  getUpdates() {
+    const updates: Partial<PeopleCreateProps> = {};
+    for (const [key, value] of Object.entries(this.props)) {
+      value.isModified &&
+        (updates[key as keyof PeopleCreateProps] =
+          typeof value.value === 'object' ? JSON.stringify(value.value) : value.value);
+    }
 
-  //   return updates;
-  // }
+    Object.keys(updates).length && Object.assign(updates, this.updateEntryAudit);
+    return updates;
+  }
 }

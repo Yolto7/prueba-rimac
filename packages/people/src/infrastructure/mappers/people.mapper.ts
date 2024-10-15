@@ -40,7 +40,7 @@ export class PeopleMapper {
     );
   }
 
-  static toCreatePersistence(people: People): Partial<PeopleCreatePersistence> {
+  static toCreatePersistence(people: People): PeopleCreatePersistence {
     return {
       id: people.id,
       name: people.name,
@@ -53,6 +53,13 @@ export class PeopleMapper {
       gender: people.gender,
 
       ...people.newEntryAudit,
+    };
+  }
+
+  static toUpdatePersistence(people: People): Partial<PeopleCreatePersistence> {
+    return {
+      id: people.id,
+      ...people.getUpdates(),
     };
   }
 
