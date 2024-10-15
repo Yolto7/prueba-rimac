@@ -22,9 +22,10 @@
     "allowJs": false,
     "target": "es2021",
     "resolveJsonModule": true,
+    "types": ["jest", "node"],
     "paths": {
       "@rimac/shared/*": ["packages/shared/src/*"]
     }
   },
-  "exclude": ["node_modules", ".build", "**/*.spec.ts"]
+  "exclude": ["node_modules", ".build", "**/*.test.ts"]
 }

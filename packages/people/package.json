@@ -72,11 +72,15 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "collectCoverage": true,
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/tests/",
-      "/.build/"
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/"
     ]
   }
 }
