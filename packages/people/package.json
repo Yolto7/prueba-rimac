@@ -77,10 +77,14 @@
     },
     "moduleFileExtensions": [
       "ts",
-      "js"
+      "js",
+      "json"
     ],
     "transformIgnorePatterns": [
-      "<rootDir>/node_modules/"
-    ]
+      "<rootDir>/node_modules/(?!(axios|@rimac/shared)/)"
+    ],
+    "moduleNameMapper": {
+      "^@rimac/shared(.*)$": "<rootDir>/../shared/src/$1"
+    }
   }
 }
