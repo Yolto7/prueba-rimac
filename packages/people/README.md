@@ -12,15 +12,15 @@ Create an .env file to start the configuration of your project in localhost envi
 NODE_ENV=development
 PORT=3000
 
-DB_USER={{your user}}
-DB_PASS={{your password}}
-DB_HOST=localhost
-DB_NAME=recruitment
-DB_PORT={{your port}}
+DATABASE_HOST=localhost
+DATABASE_PORT={{your port}}
+DATABASE_USER={{your user}}
+DATABASE_PASSWORD={{your password}}
+DATABASE_NAME=recruitment
 
 PEOPLE_TABLE_NAME={{table_name}}
 
-SWAPI_URL= https://swapi.py4e.com/api
+SWAPI_API_BASE_URL=https://swapi.py4e.com/api
 
 ```
 

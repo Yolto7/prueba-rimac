@@ -6,6 +6,7 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: ${opt:region, "us-east-1"}
+  profile: rimac-${opt:stage, "dev"}
   stage: ${opt:stage, "dev"}
   timeout: 30
   apiName: ${self:service}
@@ -19,6 +20,11 @@ plugins:
 
 package:
   individually: true
+  exclude:
+    - ./**
+  include:
+    - .build/index.js
+    - node_modules/**
 
 custom:
   serverless-offline:
