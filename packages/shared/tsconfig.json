@@ -3,8 +3,8 @@
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,
-    "outDir": ".build",
-    "rootDir": "./"
+    "outDir": ".build"
+    // "rootDir": "./"
   },
   // "include": ["**/*"],
   "include": ["src/**/*.ts"],

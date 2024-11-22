@@ -2,8 +2,8 @@
   "name": "@rimac/shared",
   "version": "1.0.0",
   "description": "shared",
-  "main": ".build/src/index",
-  "types": ".build/src/index",
+  "main": ".build/index",
+  "types": ".build/index",
   "files": [
     ".build"
   ],
