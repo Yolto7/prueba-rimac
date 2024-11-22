@@ -4,9 +4,7 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": ".build"
-    // "rootDir": "./"
   },
-  // "include": ["**/*"],
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", ".build", "**/*.spec.ts", "**/*.test.ts"]
 }
