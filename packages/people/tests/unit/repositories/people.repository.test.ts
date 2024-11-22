@@ -1,6 +1,6 @@
 import { CriteriaConverter, Logger, MysqlClientFactory, UserAuthProvider } from '@rimac/shared';
 
-import { config } from '../../../src/config';
+import { configuration } from '../../../src/config';
 import { People } from '../../../src/domain/entities/people.entity';
 import { PeopleMapper } from '../../../src/infrastructure/mappers/people.mapper';
 import PeopleMysqlRepository from '../../../src/infrastructure/repositories/people-mysql.repository';
@@ -25,7 +25,7 @@ describe('PeopleRepository', () => {
 
   beforeEach(() => {
     peopleRepository = new PeopleMysqlRepository(
-      config,
+      configuration,
       loggerMock,
       dbMock,
       criteriaConverterMock,
