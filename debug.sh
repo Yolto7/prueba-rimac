@@ -7,12 +7,25 @@ PACKAGE=$1
 STAGE="dev"
 shift
 
-# PRE DEBUG
-npm run build:shared
-cd packages/$PACKAGE
+# Build shared
+if npm run build:shared; then
+  echo "$(date '+%d/%m/%Y %H:%M:%S') The API in stage $STAGE built shared was successfully."
+else
+  echo "$(date '+%d/%m/%Y %H:%M:%S') The API in stage $STAGE built shared was failed."
+  exit 1
+fi
 
+# Prepare
+cd packages/$PACKAGE
 rm -rf logs
-npm run build
+
+# Build
+if npm run build; then
+  echo "$(date '+%d/%m/%Y %H:%M:%S') The API in stage $STAGE built was successfully."
+else
+  echo "$(date '+%d/%m/%Y %H:%M:%S') The API in stage $STAGE built was failed."
+  exit 1
+fi
 
 # DEBUG
 export SLS_DEBUG=*

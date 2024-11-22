@@ -10,7 +10,7 @@ import {
   AxiosInstance,
 } from '@rimac/shared';
 
-import { Config, config } from './config';
+import { Config, configuration } from './config';
 
 import PeopleMysqlRepository from './infrastructure/repositories/people-mysql.repository';
 import PeopleDomainService from './domain/services/people.domain.service';
@@ -53,7 +53,7 @@ export const loadContainer = async (): Promise<AwilixContainer<Cradle>> => {
 
   container.register({
     // Config
-    config: asValue(config),
+    config: asValue(configuration),
 
     // Logger
     logger: asClass(WinstonLogger)

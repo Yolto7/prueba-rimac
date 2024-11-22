@@ -43,7 +43,7 @@ custom:
 
 functions:
   search:
-    handler: .build/src/index.search
+    handler: .build/index.search
     events:
       - http:
           path: /people
@@ -51,7 +51,7 @@ functions:
           cors: true
 
   getSwapiAll:
-    handler: .build/src/index.getSwapiAll
+    handler: .build/index.getSwapiAll
     events:
       - http:
           path: /people/swapi
@@ -59,7 +59,7 @@ functions:
           cors: true
 
   create:
-    handler: .build/src/index.create
+    handler: .build/index.create
     events:
       - http:
           path: /people
