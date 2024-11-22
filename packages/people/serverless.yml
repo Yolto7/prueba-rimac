@@ -1,13 +1,12 @@
 service: rimac-people
 frameworkVersion: '3'
-useDotenv: true
 
 provider:
   name: aws
   runtime: nodejs18.x
   region: ${opt:region, "us-east-1"}
-  profile: rimac-${opt:stage, "dev"}
   stage: ${opt:stage, "dev"}
+  profile: rimac-${self:provider.stage}
   timeout: 30
   apiName: ${self:service}
 

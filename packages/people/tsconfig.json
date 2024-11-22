@@ -2,7 +2,13 @@
   "extends": "../../tsconfig.build.json",
   "compilerOptions": {
     "outDir": ".build",
-    "rootDir": "./"
+    "paths": {
+      "@config": ["src/config.ts"],
+      "@domain/*": ["src/domain/*"],
+      "@application/*": ["src/application/*"],
+      "@infrastructure/*": ["src/infrastructure/*"],
+      "@presentation/*": ["src/presentation/*"]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", ".build", "**/*.spec.ts", "**/*.test.ts"],

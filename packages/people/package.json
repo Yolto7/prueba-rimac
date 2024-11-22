@@ -7,7 +7,7 @@
     ".build"
   ],
   "scripts": {
-    "build": "rimraf -rf .build && node build.js",
+    "build": "rimraf -rf dist && tsc -b && tsc-alias -p tsconfig.json && node build.js",
     "test": "jest",
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "npm run format -- --check",
