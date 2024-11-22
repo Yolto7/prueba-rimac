@@ -3,9 +3,9 @@
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,
-    "composite": true,
     "outDir": ".build",
     "rootDir": "./"
   },
   "include": ["**/*"],
+  "exclude": ["node_modules", ".build", "**/*.spec.ts", "**/*.test.ts"]
 }
