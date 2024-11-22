@@ -45,12 +45,31 @@ if [ -z "$PACKAGE" ] || [ -z "$STAGE" ]; then
   usage
 fi
 
-# Pre deploy
-npm run build:shared
+# Build shared
+if npm run build:shared; then
+  echo "$(date '+%d/%m/%Y %H:%M:%S') The API in stage $STAGE built shared was successfully."
+else
+  echo "$(date '+%d/%m/%Y %H:%M:%S') The API in stage $STAGE built shared was failed."
+  exit 1
+fi
+
+# Prepare
 cd packages/$PACKAGE
 
-npm run compliance
-npm run build
+if npm run compliance; then
+  echo "$(date '+%d/%m/%Y %H:%M:%S') The API in stage $STAGE prepared was successfully."
+else
+  echo "$(date '+%d/%m/%Y %H:%M:%S') The API in stage $STAGE prepared was failed."
+  exit 1
+fi
+
+# Build
+if npm run build; then
+  echo "$(date '+%d/%m/%Y %H:%M:%S') The API in stage $STAGE built was successfully."
+else
+  echo "$(date '+%d/%m/%Y %H:%M:%S') The API in stage $STAGE built was failed."
+  exit 1
+fi
 
 # Deploy
 if sls deploy --stage $STAGE --region $REGION ; then

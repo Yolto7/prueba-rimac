@@ -23,7 +23,7 @@ package:
   exclude:
     - ./**
   include:
-    - .build/**
+    - .build/index.js
     - node_modules/**
 
 custom:

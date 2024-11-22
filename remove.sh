@@ -45,7 +45,7 @@ if [ -z "$PACKAGE" ] || [ -z "$STAGE" ]; then
   usage
 fi
 
-# Pre remove
+# Prepare
 cd packages/$PACKAGE
 
 # Remove

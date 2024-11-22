@@ -9,6 +9,7 @@ const buildPackage = async (entry, outdir) => {
     minify: false,
     platform: 'node',
     target: 'node18',
+    sourcemap: true,
     keepNames: true,
     allowOverwrite: true,
     external: Object.keys(dependencies),
