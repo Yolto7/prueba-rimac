@@ -1,4 +1,4 @@
-import { People } from '../../../domain/entities/people.entity';
+import { People } from '@domain/entities/people.entity';
 import { PeopleRepository } from '../../../domain/repositories/people.repository';
 
 export interface PeopleCreateInput {

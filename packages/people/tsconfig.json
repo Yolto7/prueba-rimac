@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.build.json",
   "compilerOptions": {
     "outDir": ".build",
+    "baseUrl": ".",
     "paths": {
       "@config": ["src/config.ts"],
       "@domain/*": ["src/domain/*"],
