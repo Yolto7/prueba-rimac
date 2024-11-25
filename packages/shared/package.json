@@ -10,7 +10,7 @@
   "author": "Joaquin",
   "license": "ISC",
   "scripts": {
-    "build": "rimraf -rf .build && tsc -b",
+    "build": "rimraf -rf dist && tsc -b && tsc-alias -p tsconfig.json && node build.js",
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "npm run format -- --check",
     "format:fix": "npm run format -- --write",
