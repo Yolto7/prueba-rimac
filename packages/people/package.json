@@ -7,7 +7,7 @@
     ".build"
   ],
   "scripts": {
-    "build": "rimraf -rf dist && tsc -b && tsc-alias -p tsconfig.json && node build.js",
+    "build": "rimraf -rf .build && tsc -b && tsc-alias -p tsconfig.json && node build.js",
     "test": "jest",
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "npm run format -- --check",
@@ -68,23 +68,5 @@
     "trailingComma": "es5",
     "useTabs": false,
     "vueIndentScriptAndStyle": false
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "transform": {
-      "^.+\\.ts$": "ts-jest"
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "js",
-      "json"
-    ],
-    "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!(axios|@rimac/shared)/)"
-    ],
-    "moduleNameMapper": {
-      "^@rimac/shared(.*)$": "<rootDir>/../shared/src/$1"
-    }
   }
 }
