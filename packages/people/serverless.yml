@@ -1,4 +1,4 @@
-service: rimac-people
+service: doorman-dev-st-00-people
 frameworkVersion: '3'
 
 provider:
