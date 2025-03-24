@@ -1,30 +1,57 @@
-import { ConfigBase, RECRUITMENT_CONSTANTS } from '@rimac/shared';
 import dotenv from 'dotenv';
+
+import { ConfigBase, DOORMAN_CONSTANTS } from '@rimac/shared';
 
 dotenv.config();
 
 export interface Config extends ConfigBase {
+  DATABASE_HOST: string;
+  DATABASE_PORT: number;
+  DATABASE_USER: string;
+  DATABASE_PASSWORD: string;
+  DATABASE_NAME: string;
+
   PEOPLE_TABLE_NAME: string;
 
   SWAPI_API_BASE_URL: string;
 }
 
-export const configuration: Config = {
-  NODE_ENV: process.env.NODE_ENV || 'staging',
-  PORT: Number(process.env.PORT) || 3000,
+const {
+  NODE_ENV = DOORMAN_CONSTANTS.ENVIRONMENTS.STG,
 
-  DATABASE_HOST: process.env.DATABASE_HOST || '',
-  DATABASE_PORT: Number(process.env.DATABASE_PORT || 3306),
-  DATABASE_USER: process.env.DATABASE_USER || '',
-  DATABASE_PASSWORD: process.env.DATABASE_PASSWORD || '',
-  DATABASE_NAME: process.env.DATABASE_NAME || '',
+  AWS_ACCESS_KEY_ID = '',
+  AWS_SECRET_ACCESS_KEY = '',
+  AWS_REGION_NAME = '',
 
-  PEOPLE_TABLE_NAME: process.env.PEOPLE_TABLE_NAME || '',
+  DATABASE_HOST = 'localhost',
+  DATABASE_PORT = 3306,
+  DATABASE_USER = 'root',
+  DATABASE_PASSWORD = '',
+  DATABASE_NAME = '',
 
-  SWAPI_API_BASE_URL: process.env.SWAPI_API_BASE_URL || '',
+  PEOPLE_TABLE_NAME = '',
 
-  isDebug: process.env.NODE_ENV === RECRUITMENT_CONSTANTS.ENVIRONMENTS.DEBUG,
-  isDevelopment: process.env.NODE_ENV === RECRUITMENT_CONSTANTS.ENVIRONMENTS.DEV,
-  isStaging: process.env.NODE_ENV === RECRUITMENT_CONSTANTS.ENVIRONMENTS.STG,
-  isProduction: process.env.NODE_ENV === RECRUITMENT_CONSTANTS.ENVIRONMENTS.PROD,
+  SWAPI_API_BASE_URL = '',
+} = process.env;
+
+export const config: Config = {
+  NODE_ENV,
+
+  AWS_ACCESS_KEY_ID,
+  AWS_SECRET_ACCESS_KEY,
+  AWS_REGION_NAME,
+
+  DATABASE_HOST,
+  DATABASE_PORT: Number(DATABASE_PORT || 3306),
+  DATABASE_USER,
+  DATABASE_PASSWORD,
+  DATABASE_NAME,
+
+  PEOPLE_TABLE_NAME,
+
+  SWAPI_API_BASE_URL,
+  isDebug: process.env.NODE_ENV === DOORMAN_CONSTANTS.ENVIRONMENTS.DEBUG,
+  isDevelopment: process.env.NODE_ENV === DOORMAN_CONSTANTS.ENVIRONMENTS.DEV,
+  isStaging: process.env.NODE_ENV === DOORMAN_CONSTANTS.ENVIRONMENTS.STG,
+  isProduction: process.env.NODE_ENV === DOORMAN_CONSTANTS.ENVIRONMENTS.PROD,
 };

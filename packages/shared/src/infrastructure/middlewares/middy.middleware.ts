@@ -5,11 +5,12 @@ import httpHeaderNormalizer from '@middy/http-header-normalizer';
 import httpSecurityHeaders from '@middy/http-security-headers';
 import httpCors from '@middy/http-cors';
 
-import { AsyncContext, RequestAsyncContext } from '../../utils/context';
-import { RECRUITMENT_CONSTANTS } from '../../utils/constants';
+import { AsyncContext, RequestAsyncContext, SysTokenAsyncContext } from '../context';
+import { DOORMAN_CONSTANTS } from '../../domain/constants';
 
 export interface MiddyLambdaContext extends Context {
-  asyncContext: RequestAsyncContext;
+  requestAsyncContext: RequestAsyncContext;
+  sysTokenAsyncContext: SysTokenAsyncContext;
 }
 
 export type Handler = (event: APIGatewayProxyEvent) => Promise<unknown>;
@@ -19,14 +20,46 @@ export class MiddyMiddleware {
 
   static use(handler: Handler, middlewares: MiddlewareObj<any>[] = []) {
     return middy((event: APIGatewayProxyEvent, context: MiddyLambdaContext) => {
-      AsyncContext.set(RECRUITMENT_CONSTANTS.ASYNCCONTEXT.REQUEST, context.asyncContext);
+      AsyncContext.set(DOORMAN_CONSTANTS.ASYNCCONTEXT.REQUEST, context.requestAsyncContext);
+      AsyncContext.set(DOORMAN_CONSTANTS.ASYNCCONTEXT.SYS_TOKEN, context.sysTokenAsyncContext);
+
       return handler(event);
     }).use([
       httpCors(),
-      httpHeaderNormalizer(),
-      httpSecurityHeaders(),
+      httpHeaderNormalizer({
+        defaultHeaders: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },
+      }),
+      httpSecurityHeaders({
+        strictTransportSecurity: {
+          maxAge: 31536000,
+          includeSubDomains: true,
+          preload: true,
+        },
+        contentSecurityPolicy: {
+          defaultSrc: 'self',
+          scriptSrc: 'self',
+          styleSrc: 'self',
+          imgSrc: 'self',
+          frameAncestors: 'self',
+        },
+      }),
+      // this.tlsCheckMiddleware(),
       jsonBodyParser(),
       ...middlewares,
     ]);
   }
+
+  /* private static tlsCheckMiddleware(): MiddlewareObj<APIGatewayProxyEvent, APIGatewayProxyResult> {
+    return {
+      before: (handler) => {
+        const protocol = handler.event.requestContext.protocol;
+        if (!protocol || !protocol.includes('TLS') || !protocol.includes('1.2')) {
+          throw new AppError(ErrorTypes.FORBIDDEN, 'TLS 1.2 is required', 'ERR_TLS_1.2_REQUIRED');
+        }
+      },
+    };
+  } */
 }

@@ -1,4 +1,4 @@
-import { filterDeleted, OrderTypes, translateKey } from '@rimac/shared';
+import {  OrderTypes, translateKey } from '@rimac/shared';
 
 import PeopleDomainService from '../../../domain/services/people.domain.service';
 import { SwapiNormalize, SwapiPeople, SwapiProxyPort } from '../../../domain/ports/swapiProxy.port';
@@ -11,7 +11,7 @@ export default class PeopleQueriesService {
 
   search() {
     return this.peopleDomainService.matching({
-      filters: [filterDeleted()],
+      filters: [],
       orderBy: 'createdAt',
       orderType: OrderTypes.DESC,
     });

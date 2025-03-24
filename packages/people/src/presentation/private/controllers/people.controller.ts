@@ -14,24 +14,27 @@ export default class PeoplePrivateController {
   ) {}
 
   async search(_event: APIGatewayProxyEvent) {
-    const { people, total, page, take, totalPages } = await this.peopleQueriesService.search();
+    const { people, ...pagination } = await this.peopleQueriesService.search();
     return AppSuccess.status(200).json({
-      data: people.map((e) => PeopleMapper.toPresentation(e)),
-      total,
-      page,
-      take,
-      totalPages,
+      message: 'People swapi obtained successfully',
+      data: {
+        people: people.map((e) => PeopleMapper.toPresentation(e)),
+        ...pagination,
+      },
     });
   }
 
   async getSwapiAll(_event: APIGatewayProxyEvent) {
     return AppSuccess.status(200).json({
+      message: 'People swapi obtained successfully',
       data: await this.peopleQueriesService.getSwapiAll(),
     });
   }
 
   async create(event: APIGatewayProxyEvent) {
     await this.peopleCreateCommandService.handle(PeopleValidator.create(event.body));
-    return AppSuccess.status(200).json();
+    return AppSuccess.status(200).json({
+      message: 'People created successfully',
+    });
   }
 }

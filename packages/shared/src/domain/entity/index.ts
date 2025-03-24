@@ -1,4 +1,5 @@
-import { formatDate } from '../../utils/helpers/date';
+import { formatDate } from '../../infrastructure/helpers/date';
+import { DOORMAN_CONSTANTS } from '../constants';
 import { UniqueEntityId } from './uniqueEntityId';
 
 export interface AuditEntry {
@@ -11,7 +12,7 @@ export interface AuditEntry {
   deleted?: boolean;
 }
 
-const isEntity = (v: unknown): v is Entity<unknown extends AuditEntry ? {} : AuditEntry> => {
+const isEntity = (v: unknown): v is Entity<unknown extends AuditEntry ? unknown : AuditEntry> => {
   return v instanceof Entity;
 };
 
@@ -64,18 +65,18 @@ export abstract class Entity<T extends AuditEntry> {
     return Object.values(this.props).some((valueObject) => valueObject.isModified);
   }
 
-  createNewEntryAudit(username: string) {
-    this.props.createdAt = formatDate(new Date());
-    this.props.createdBy = username;
+  createNewEntryAudit(username?: string) {
+    this.props.createdAt = formatDate({ date: new Date() });
+    this.props.createdBy = username || DOORMAN_CONSTANTS.USERS.SYSTEM;
     this.props.deleted = false;
   }
-  createUpdateEntryAudit(username: string) {
-    this.props.updatedAt = formatDate(new Date());
-    this.props.updatedBy = username;
+  createUpdateEntryAudit(username?: string) {
+    this.props.updatedAt = formatDate({ date: new Date() });
+    this.props.updatedBy = username || DOORMAN_CONSTANTS.USERS.SYSTEM;
   }
-  createDeleteEntryAudit(username: string) {
-    this.props.deletedAt = formatDate(new Date());
-    this.props.deletedBy = username;
+  createDeleteEntryAudit(username?: string) {
+    this.props.deletedAt = formatDate({ date: new Date() });
+    this.props.deletedBy = username || DOORMAN_CONSTANTS.USERS.SYSTEM;
     this.props.deleted = true;
   }
 }

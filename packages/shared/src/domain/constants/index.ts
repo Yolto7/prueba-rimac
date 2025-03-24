@@ -1,4 +1,4 @@
-export const RECRUITMENT_CONSTANTS = {
+export const DOORMAN_CONSTANTS = {
   ENVIRONMENTS: {
     DEBUG: 'debug',
     DEV: 'development',
@@ -7,6 +7,7 @@ export const RECRUITMENT_CONSTANTS = {
   },
   ASYNCCONTEXT: {
     REQUEST: 'currentrequest',
+    SYS_TOKEN: 'sysToken',
   },
   HEADERS: {
     AUTHORIZATION: 'authorization',
@@ -15,3 +16,7 @@ export const RECRUITMENT_CONSTANTS = {
     SYSTEM: 'Sistema',
   },
 };
+
+export const PAGINATION_DEFAULT_PAGE = 1;
+export const PAGINATION_DEFAULT_LIMIT = 50;
+export const PAGINATION_MAX_LIMIT = 1000;

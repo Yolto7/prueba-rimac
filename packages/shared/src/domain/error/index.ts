@@ -1,6 +1,7 @@
 export enum ErrorTypes {
   BAD_REQUEST = 'BAD_REQUEST',
   UNAUTHORIZED = 'UNAUTHORIZED',
+  FORBIDDEN = 'FORBIDDEN',
   NOT_FOUND = 'NOT_FOUND',
   NOT_ALLOWED = 'NOT_ALLOWED',
   UNPROCESSABLE_ENTITY = 'UNPROCESSABLE_ENTITY',
@@ -10,6 +11,7 @@ export class AppError extends Error {
   private static readonly HTTP_CODE_BY_ERROR: Record<ErrorTypes, number> = {
     BAD_REQUEST: 400,
     UNAUTHORIZED: 401,
+    FORBIDDEN: 403,
     NOT_FOUND: 404,
     NOT_ALLOWED: 405,
     UNPROCESSABLE_ENTITY: 422,

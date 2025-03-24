@@ -2,23 +2,18 @@ import { RowDataPacket } from 'mysql2/promise';
 
 import {
   AppError,
-  CriteriaConverter,
   ErrorTypes,
   Logger,
   MysqlClientFactory,
-  MysqlConverterResult,
-  RECRUITMENT_CONSTANTS,
   UserAuthProvider,
+  MysqlCriteriaConverter,
+  Criteria,
 } from '@rimac/shared';
 
 import { Config } from '../../config';
 import { People } from '../../domain/entities/people.entity';
 import { PeopleDomain, PeopleMapper } from '../mappers/people.mapper';
-import {
-  FilterResponse,
-  MatchingInput,
-  PeopleRepository,
-} from '../../domain/repositories/people.repository';
+import { FilterResponse, PeopleRepository } from '../../domain/repositories/people.repository';
 
 export default class PeopleMysqlRepository implements PeopleRepository {
   private readonly tableName: string;
@@ -27,15 +22,15 @@ export default class PeopleMysqlRepository implements PeopleRepository {
     private readonly config: Config,
     private readonly logger: Logger,
     private readonly db: MysqlClientFactory,
-    private readonly criteriaConverter: CriteriaConverter,
+    private readonly mysqlCriteriaConverter: MysqlCriteriaConverter,
     private readonly userAuthProvider: UserAuthProvider
   ) {
     this.tableName = this.config.PEOPLE_TABLE_NAME;
   }
 
-  async matching(input: MatchingInput): Promise<FilterResponse> {
+  async matching(criteria: Criteria): Promise<FilterResponse> {
     try {
-      const query = this.criteriaConverter.convert<MysqlConverterResult>(input.criteria),
+      const query = this.mysqlCriteriaConverter.convert(criteria),
         sql = `SELECT id,
                     name,
                     height, 
@@ -49,7 +44,7 @@ export default class PeopleMysqlRepository implements PeopleRepository {
                 FROM ${this.tableName}
                 ${query.filter} 
                 ${query.sort} 
-                ${input.isTotal ? '' : query.pagination}`;
+                ${criteria.isTotal ? '' : query.pagination}`;
 
       const [[rows = []], [pagination = []]] = await Promise.all([
           this.db.query<RowDataPacket[]>({
@@ -78,9 +73,7 @@ export default class PeopleMysqlRepository implements PeopleRepository {
 
   async create(input: People): Promise<void> {
     try {
-      input.createNewEntryAudit(
-        this.userAuthProvider.get()?.document || RECRUITMENT_CONSTANTS.USERS.SYSTEM
-      );
+      input.createNewEntryAudit(this.userAuthProvider.get()?.document);
       const keys = [],
         values = [];
 

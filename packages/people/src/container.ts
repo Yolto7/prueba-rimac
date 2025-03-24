@@ -1,16 +1,17 @@
 import { createContainer, InjectionMode, asValue, AwilixContainer, asClass } from 'awilix';
+import { Pool } from 'mysql2/promise';
 
 import {
   Logger,
   WinstonLogger,
   UserAuthProvider,
-  MysqlClientFactory,
-  MysqlCriteriaConverter,
   ErrorInterceptor,
   AxiosInstance,
+  MysqlClientFactory,
+  MysqlCriteriaConverter,
 } from '@rimac/shared';
 
-import { Config, configuration } from './config';
+import { Config, config } from './config';
 
 import PeopleMysqlRepository from './infrastructure/repositories/people-mysql.repository';
 import PeopleDomainService from './domain/services/people.domain.service';
@@ -22,7 +23,7 @@ import { SwapiProxyAdapter } from './infrastructure/adapters/swapiProxy-axios.ad
 
 export interface Cradle {
   config: Config;
-  db: MysqlClientFactory;
+  db: Pool;
   axios: AxiosInstance;
   logger: Logger;
 
@@ -53,7 +54,7 @@ export const loadContainer = async (): Promise<AwilixContainer<Cradle>> => {
 
   container.register({
     // Config
-    config: asValue(configuration),
+    config: asValue(config),
 
     // Logger
     logger: asClass(WinstonLogger)
@@ -73,11 +74,7 @@ export const loadContainer = async (): Promise<AwilixContainer<Cradle>> => {
     userAuthProvider: asClass(UserAuthProvider).singleton().scoped(),
 
     // Repositories
-    peopleMysqlRepository: asClass(PeopleMysqlRepository)
-      .inject((container: AwilixContainer) => ({
-        criteriaConverter: container.cradle.mysqlCriteriaConverter,
-      }))
-      .scoped(),
+    peopleMysqlRepository: asClass(PeopleMysqlRepository).scoped(),
 
     // Domain Services
     peopleDomainService: asClass(PeopleDomainService)
@@ -111,7 +108,7 @@ export const loadContainer = async (): Promise<AwilixContainer<Cradle>> => {
   container.register({
     // Database
     db: asValue(
-      MysqlClientFactory.getInstance(
+      MysqlClientFactory.getClient(
         {
           DATABASE_HOST: container.cradle.config.DATABASE_HOST,
           DATABASE_PORT: container.cradle.config.DATABASE_PORT,

@@ -9,6 +9,7 @@ export default class PeoplePublicController {
 
   async getSwapiAll(_event: APIGatewayProxyEvent) {
     return AppSuccess.status(200).json({
+      message: 'People swapi obtained successfully',
       data: await this.peopleQueriesService.getSwapiAll(),
     });
   }

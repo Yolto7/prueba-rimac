@@ -1,13 +1,18 @@
-import { RequestAsyncContext, AsyncContext } from '../../utils/context';
-import { RECRUITMENT_CONSTANTS } from '../../utils/constants';
+import {
+  RequestAsyncContext,
+  AsyncContext,
+  SysTokenAsyncContext,
+} from '../../infrastructure/context';
+import { DOORMAN_CONSTANTS } from '../constants';
 import { UniqueEntityId, UniqueId } from '../entity/uniqueEntityId';
+import { getToday } from '../../infrastructure/helpers/date';
 
 export interface DomainEventInput {
   aggregateId: UniqueId;
   entity: string;
   eventName: string;
   eventId?: UniqueId;
-  occurredOn?: Date;
+  occurredOn?: string;
 }
 
 export interface DomainEventClass {
@@ -19,17 +24,19 @@ export abstract class DomainEvent {
   readonly entity: string;
   readonly eventName: string;
   readonly eventId: UniqueId;
-  readonly occurredOn: Date;
-  readonly context: RequestAsyncContext | undefined;
+  readonly occurredOn: string;
+  readonly context?: RequestAsyncContext;
+  readonly sysTokenContext?: SysTokenAsyncContext;
 
   constructor({ aggregateId, entity, eventName, eventId, occurredOn }: DomainEventInput) {
     this.aggregateId = aggregateId;
     this.entity = entity;
     this.eventName = eventName;
     this.eventId = eventId || UniqueEntityId.random();
-    this.occurredOn = occurredOn || new Date();
-    this.context = AsyncContext.get<RequestAsyncContext>(
-      RECRUITMENT_CONSTANTS.ASYNCCONTEXT.REQUEST
+    this.occurredOn = occurredOn || getToday('YYYY-MM-DD HH:mm:ss');
+    this.context = AsyncContext.get<RequestAsyncContext>(DOORMAN_CONSTANTS.ASYNCCONTEXT.REQUEST);
+    this.sysTokenContext = AsyncContext.get<SysTokenAsyncContext>(
+      DOORMAN_CONSTANTS.ASYNCCONTEXT.SYS_TOKEN
     );
   }
 }

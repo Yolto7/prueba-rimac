@@ -1,7 +1,7 @@
 import { AppError, ErrorTypes } from '../error';
 import { FilterField } from './filterField';
 import { FilterOperator } from './filterOperator';
-import { FilterValue } from './filterValue';
+import { FilterValue, FilterValueTypes } from './filterValue';
 
 export class Filter {
   readonly field: FilterField;
@@ -14,7 +14,7 @@ export class Filter {
     this.value = value;
   }
 
-  static fromValues(values: Map<string, string>): Filter {
+  static fromValues(values: Map<string, FilterValueTypes>): Filter {
     const field = values.get('field');
     const operator = values.get('operator');
     const value = values.get('value');
@@ -24,8 +24,8 @@ export class Filter {
     }
 
     return new Filter(
-      new FilterField(field),
-      FilterOperator.fromValue(operator),
+      new FilterField(field as string),
+      FilterOperator.fromValue(operator as string),
       new FilterValue(value)
     );
   }

@@ -1,6 +1,5 @@
 interface Response {
   statusCode: number;
-  headers: unknown;
   isBase64Encoded: boolean;
   body?: string;
 }
@@ -8,7 +7,6 @@ interface Response {
 export class AppSuccess {
   private static response: Response = {
     statusCode: 200,
-    headers: { 'Content-Type': 'application/json' },
     isBase64Encoded: false,
     body: undefined,
   };
@@ -18,8 +16,13 @@ export class AppSuccess {
     return this;
   }
 
-  static json(data: unknown = undefined) {
-    this.response.body = data ? JSON.stringify(data) : undefined;
+  static json({ message, data = null }: { message: string; data?: unknown }) {
+    this.response.body = JSON.stringify({
+      success: true,
+      message,
+      data,
+    });
+
     return this.response;
   }
 }

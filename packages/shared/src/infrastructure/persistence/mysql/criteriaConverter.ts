@@ -3,25 +3,25 @@ import { Criteria } from '../../../domain/criteria';
 import { Filter } from '../../../domain/criteria/filter';
 import { Filters } from '../../../domain/criteria/filters';
 import { Order } from '../../../domain/criteria/order';
-import { sqlPaginationResolver } from '../sql/pagination';
+import { sqlPaginationResolver } from './pagination';
 import { Operator } from '../../../domain/criteria/filterOperator';
+import { FilterValueTypes } from '../../../domain/criteria/filterValue';
 import { AppError, ErrorTypes } from '../../../domain/error';
 
-export type MysqlValue = string | number;
-type MysqlFilter = { field: string; value: string | number | string[] | number[] };
-type MysqlGenerateFilter = { filters: string; values: MysqlValue[] };
+type MysqlFilter = { field: string; value: FilterValueTypes | string[] | number[] };
+type MysqlGenerateFilter = { filters: string; values: FilterValueTypes[] };
 
-export function filterDeleted(column = 'deleted'): Map<string, string> {
-  return new Map([
+export function mysqlFilterDeleted(column = 'deleted'): Map<string, FilterValueTypes> {
+  return new Map<string, FilterValueTypes>([
     ['field', column],
     ['operator', Operator.EQUAL],
-    ['value', '0'],
+    ['value', 0],
   ]);
 }
 
 export interface MysqlConverterResult {
   filter: string;
-  values: MysqlValue[];
+  values: FilterValueTypes[];
   sort: string;
   pagination: string;
   page: number;
@@ -32,7 +32,7 @@ interface TransformerFunction<T, K> {
   (value: T): K;
 }
 
-export class MysqlCriteriaConverter implements CriteriaConverter {
+export class MysqlCriteriaConverter implements CriteriaConverter<Criteria, MysqlConverterResult> {
   private filterTransformers: Map<Operator, TransformerFunction<Filter, MysqlFilter>>;
   constructor() {
     this.filterTransformers = new Map<Operator, TransformerFunction<Filter, MysqlFilter>>([
@@ -48,8 +48,8 @@ export class MysqlCriteriaConverter implements CriteriaConverter {
     ]);
   }
 
-  convert<MysqlConverterResult>(criteria: Criteria): MysqlConverterResult {
-    const { page, offset, limit } = sqlPaginationResolver(criteria.page, criteria.take),
+  convert(criteria: Criteria): MysqlConverterResult {
+    const { page, offset, limit } = sqlPaginationResolver(criteria),
       { filters, values: filterValues } = this.generateFilter(criteria.filters);
 
     return {
@@ -59,7 +59,7 @@ export class MysqlCriteriaConverter implements CriteriaConverter {
       pagination: this.generatePagination(offset),
       page: page,
       take: limit,
-    } as MysqlConverterResult;
+    };
   }
 
   protected generateFilter(filters: Filters): MysqlGenerateFilter {
@@ -132,7 +132,10 @@ export class MysqlCriteriaConverter implements CriteriaConverter {
   }
 
   private inFilter(filter: Filter): MysqlFilter {
-    const values = filter.value.value.split(',').map((v) => v.trim());
+    const values = filter.value.value
+      .toString()
+      .split(',')
+      .map((v) => v.trim());
     return {
       field: `${filter.field.value} ${filter.operator.value} (${Array(values.length).fill('?').join(', ')})`,
       value: values,
@@ -140,7 +143,10 @@ export class MysqlCriteriaConverter implements CriteriaConverter {
   }
 
   private notInFilter(filter: Filter): MysqlFilter {
-    const values = filter.value.value.split(',').map((v) => v.trim());
+    const values = filter.value.value
+      .toString()
+      .split(',')
+      .map((v) => v.trim());
     return {
       field: `${filter.field.value} ${filter.operator.value} (${Array(values.length).fill('?').join(', ')})`,
       value: values,

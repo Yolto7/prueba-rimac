@@ -9,9 +9,9 @@ export class ErrorInterceptor {
   use(): MiddlewareObj {
     return {
       onError: ({ error }: any) => {
-        this.logger.error(error);
+        this.logger.error(JSON.stringify(error));
 
-        const body = { message: error.message };
+        const body = { succes: false, message: error.message };
         if (error instanceof AppError) {
           Object.assign(body, {
             code: error.errorCode,
@@ -21,7 +21,6 @@ export class ErrorInterceptor {
 
         return {
           statusCode: error.httpCode || 500,
-          headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
           isBase64Encoded: false,
           body: JSON.stringify(body),
         };

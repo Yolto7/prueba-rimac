@@ -1,4 +1,5 @@
 import { Filter } from './filter';
+import { FilterValueTypes } from './filterValue';
 
 export class Filters {
   readonly filters: Filter[];
@@ -7,7 +8,7 @@ export class Filters {
     this.filters = filters;
   }
 
-  static fromValues(filters: Array<Map<string, string>>): Filters {
+  static fromValues(filters: Array<Map<string, FilterValueTypes>>): Filters {
     return new Filters(filters.map(Filter.fromValues));
   }
 

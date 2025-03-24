@@ -8,7 +8,7 @@ import {
   Query,
   QueryInput,
   UniqueId,
-  filterDeleted,
+  mysqlFilterDeleted,
 } from '@rimac/shared';
 
 import { PeopleRepository } from '../repositories/people.repository';
@@ -23,7 +23,7 @@ export default class PeopleDomainService {
       ['value', id],
     ]);
 
-    const { people } = await this.matching({ filters: [filterId, filterDeleted()] });
+    const { people } = await this.matching({ filters: [filterId] });
     if (!people.length) {
       throw new AppError(ErrorTypes.NOT_FOUND, `Person not found`, 'ERR_PERSON_NOT_FOUND');
     }
@@ -32,17 +32,26 @@ export default class PeopleDomainService {
   }
 
   matching(input: QueryInput) {
-    const query = new Query(input.filters, input.orderBy, input.orderType, input.page, input.take),
-      criteria = new Criteria(
-        Filters.fromValues(query.filters),
-        Order.fromValues(query.orderBy, query.orderType),
-        query.page,
-        query.take
-      );
+    !input.includeDeleted && input.filters.push(mysqlFilterDeleted());
 
-    return this.peopleRepository.matching({
-      criteria,
-      isTotal: query.isTotal,
+    const query = new Query({
+      filters: input.filters,
+      orderBy: input.orderBy,
+      orderType: input.orderType,
+      page: input.page,
+      take: input.take,
+      isTotal: input.isTotal,
+      includeDeleted: input.includeDeleted,
     });
+
+    return this.peopleRepository.matching(
+      new Criteria({
+        filters: Filters.fromValues(query.filters),
+        order: Order.fromValues(query.orderBy, query.orderType),
+        page: query.page,
+        take: query.take,
+        isTotal: query.isTotal,
+      })
+    );
   }
 }

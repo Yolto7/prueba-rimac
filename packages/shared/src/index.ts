@@ -2,16 +2,20 @@
 export * from './domain/aggregate';
 
 export * from './domain/config';
+export * from './domain/constants';
 
 export * from './domain/criteria';
 export * from './domain/criteria/converter';
 export * from './domain/criteria/filters';
 export * from './domain/criteria/filterOperator';
+export * from './domain/criteria/filterValue';
 export * from './domain/criteria/order';
 export * from './domain/criteria/orderType';
+export * from './domain/criteria/pagination';
 export * from './domain/criteria/query';
 
-export * from './domain/entity';
+export * from './domain/entity/index';
+export * from './domain/entity/uniqueEntityId';
 
 export * from './domain/error';
 
@@ -23,6 +27,10 @@ export * from './domain/events/eventBus';
 
 export * from './domain/logger';
 
+export * from './domain/messageBroker';
+
+export * from './domain/roles';
+
 export * from './domain/success';
 
 export * from './domain/valueObject';
@@ -30,30 +38,47 @@ export * from './domain/valueObject/enumValueObject';
 export * from './domain/valueObject/numberValueObject';
 export * from './domain/valueObject/stringValueObject';
 export * from './domain/valueObject/booleanValueObject';
-export * from './domain/entity/uniqueEntityId';
-export * from './domain/valueObject/arrayValueObject';
-export * from './domain/valueObject/objectValueObject';
 
 // Infrastructure
 export * from './infrastructure/axios';
+
+export * from './infrastructure/context';
+
+export * from './infrastructure/eventBus/eventBridge/eventBridgeEventBus';
+
+export * from './infrastructure/helpers/date';
+export * from './infrastructure/helpers/index';
+export * from './infrastructure/helpers/slugify';
+export * from './infrastructure/helpers/xss';
 
 export * from './infrastructure/interceptors/error.interceptor';
 
 export * from './infrastructure/logger/winston.logger';
 
-export * from './infrastructure/middlewares/middy.middleware';
+export * from './infrastructure/messageBroker/sqs/sqsMessageBroker';
 
+export * from './infrastructure/middlewares/event.middleware';
+export * from './infrastructure/middlewares/context.middleware';
+export * from './infrastructure/middlewares/middy.middleware';
+export * from './infrastructure/middlewares/sysToken.middleware';
+export * from './infrastructure/middlewares/message.middleware';
+
+export * from './infrastructure/persistence/dynamo/clientFactory';
+export * from './infrastructure/persistence/dynamo/criteriaConverter';
+export * from './infrastructure/persistence/dynamo/pagination';
+
+export { MysqlClientFactory } from './infrastructure/persistence/mysql/clientFactory';
+export {
+  MysqlConverterResult,
+  MysqlCriteriaConverter,
+  mysqlFilterDeleted,
+} from './infrastructure/persistence/mysql/criteriaConverter';
+export {
+  SqlPagination,
+  sqlPaginationResolver,
+} from './infrastructure/persistence/mysql/pagination';
+
+export * from './infrastructure/providers/sysToken.provider';
 export * from './infrastructure/providers/userAuth.provider';
 
-export * from './infrastructure/persistence/sql/pagination';
-export * from './infrastructure/persistence/mysql/criteriaConverter';
-export * from './infrastructure/persistence/mysql/clientFactory';
-
 export * from './infrastructure/validator/zod.validator';
-
-// Utils
-export * from './utils/constants';
-export * from './utils/context';
-export * from './utils/helpers';
-export * from './utils/helpers/xss';
-export * from './utils/helpers/date';

@@ -1,5 +1,3 @@
-import { Criteria } from '.';
-
-export interface CriteriaConverter {
-  convert<T>(criteria: Criteria): T;
+export interface CriteriaConverter<T, K> {
+  convert(input: T): K;
 }

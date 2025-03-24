@@ -1,7 +1,9 @@
-import { StringValueObject } from '../valueObject/stringValueObject';
+import { ValueObject } from '../valueObject';
 
-export class FilterValue extends StringValueObject {
-  constructor(value: string) {
+export type FilterValueTypes = string | number | boolean;
+
+export class FilterValue extends ValueObject<FilterValueTypes> {
+  constructor(value: FilterValueTypes) {
     super(value);
   }
 }

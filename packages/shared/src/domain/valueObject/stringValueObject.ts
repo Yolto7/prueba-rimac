@@ -1,11 +1,11 @@
 import { ValueObject } from '.';
 import { AppError, ErrorTypes } from '../error';
-import { sanitize } from '../../utils/helpers/xss';
+import { sanitize } from '../../infrastructure/helpers/xss';
 
 export abstract class StringValueObject extends ValueObject<string> {
-  constructor(value: string, isEmptyAllowed = false) {
+  constructor(value: string, options = { allowEmptyString: false }) {
     value = sanitize(value.trim());
-    if (!isEmptyAllowed && !value) {
+    if (!options.allowEmptyString && !value) {
       throw new AppError(
         ErrorTypes.BAD_REQUEST,
         'Value string must be defined',
