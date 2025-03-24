@@ -2,7 +2,7 @@ import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 
 import { Logger } from '../../../domain/logger';
 import { MessageBroker } from '../../../domain/messageBroker';
-import { DOORMAN_CONSTANTS } from '../../../domain/constants';
+import { RIMAC_CONSTANTS } from '../../../domain/constants';
 import { AsyncContext, RequestAsyncContext, SysTokenAsyncContext } from '../../context';
 
 export class SqsMessageBroker implements MessageBroker {
@@ -16,9 +16,9 @@ export class SqsMessageBroker implements MessageBroker {
   async publish<T>(topic: string, data: T): Promise<void> {
     const body = JSON.stringify({
       data,
-      context: AsyncContext.get<RequestAsyncContext>(DOORMAN_CONSTANTS.ASYNCCONTEXT.REQUEST),
+      context: AsyncContext.get<RequestAsyncContext>(RIMAC_CONSTANTS.ASYNCCONTEXT.REQUEST),
       sysTokenContext: AsyncContext.get<SysTokenAsyncContext>(
-        DOORMAN_CONSTANTS.ASYNCCONTEXT.SYS_TOKEN
+        RIMAC_CONSTANTS.ASYNCCONTEXT.SYS_TOKEN
       ),
     });
 

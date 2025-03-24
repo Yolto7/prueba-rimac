@@ -1,5 +1,5 @@
 import { formatDate } from '../../infrastructure/helpers/date';
-import { DOORMAN_CONSTANTS } from '../constants';
+import { RIMAC_CONSTANTS } from '../constants';
 import { UniqueEntityId } from './uniqueEntityId';
 
 export interface AuditEntry {
@@ -67,16 +67,16 @@ export abstract class Entity<T extends AuditEntry> {
 
   createNewEntryAudit(username?: string) {
     this.props.createdAt = formatDate({ date: new Date() });
-    this.props.createdBy = username || DOORMAN_CONSTANTS.USERS.SYSTEM;
+    this.props.createdBy = username || RIMAC_CONSTANTS.USERS.SYSTEM;
     this.props.deleted = false;
   }
   createUpdateEntryAudit(username?: string) {
     this.props.updatedAt = formatDate({ date: new Date() });
-    this.props.updatedBy = username || DOORMAN_CONSTANTS.USERS.SYSTEM;
+    this.props.updatedBy = username || RIMAC_CONSTANTS.USERS.SYSTEM;
   }
   createDeleteEntryAudit(username?: string) {
     this.props.deletedAt = formatDate({ date: new Date() });
-    this.props.deletedBy = username || DOORMAN_CONSTANTS.USERS.SYSTEM;
+    this.props.deletedBy = username || RIMAC_CONSTANTS.USERS.SYSTEM;
     this.props.deleted = true;
   }
 }

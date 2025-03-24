@@ -1,6 +1,6 @@
 import { SQSEvent } from 'aws-lambda';
 
-import { DOORMAN_CONSTANTS } from '../../domain/constants';
+import { RIMAC_CONSTANTS } from '../../domain/constants';
 import { AsyncContext, RequestAsyncContext, SysTokenAsyncContext } from '../context';
 import { Logger } from '../../domain/logger';
 import { SysTokenMiddleware } from './sysToken.middleware';
@@ -45,10 +45,10 @@ export class MessageMiddleware {
 
     context && (context.token = undefined);
 
-    AsyncContext.set(DOORMAN_CONSTANTS.ASYNCCONTEXT.REQUEST, context);
+    AsyncContext.set(RIMAC_CONSTANTS.ASYNCCONTEXT.REQUEST, context);
 
     AsyncContext.set(
-      DOORMAN_CONSTANTS.ASYNCCONTEXT.SYS_TOKEN,
+      RIMAC_CONSTANTS.ASYNCCONTEXT.SYS_TOKEN,
       await this.sysTokenMiddleware.getSysToken(sysTokenContext)
     );
   }

@@ -1,4 +1,4 @@
-export const DOORMAN_CONSTANTS = {
+export const RIMAC_CONSTANTS = {
   ENVIRONMENTS: {
     DEBUG: 'debug',
     DEV: 'development',

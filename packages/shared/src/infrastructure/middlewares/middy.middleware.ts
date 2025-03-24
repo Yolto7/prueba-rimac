@@ -6,7 +6,7 @@ import httpSecurityHeaders from '@middy/http-security-headers';
 import httpCors from '@middy/http-cors';
 
 import { AsyncContext, RequestAsyncContext, SysTokenAsyncContext } from '../context';
-import { DOORMAN_CONSTANTS } from '../../domain/constants';
+import { RIMAC_CONSTANTS } from '../../domain/constants';
 
 export interface MiddyLambdaContext extends Context {
   requestAsyncContext: RequestAsyncContext;
@@ -20,8 +20,8 @@ export class MiddyMiddleware {
 
   static use(handler: Handler, middlewares: MiddlewareObj<any>[] = []) {
     return middy((event: APIGatewayProxyEvent, context: MiddyLambdaContext) => {
-      AsyncContext.set(DOORMAN_CONSTANTS.ASYNCCONTEXT.REQUEST, context.requestAsyncContext);
-      AsyncContext.set(DOORMAN_CONSTANTS.ASYNCCONTEXT.SYS_TOKEN, context.sysTokenAsyncContext);
+      AsyncContext.set(RIMAC_CONSTANTS.ASYNCCONTEXT.REQUEST, context.requestAsyncContext);
+      AsyncContext.set(RIMAC_CONSTANTS.ASYNCCONTEXT.SYS_TOKEN, context.sysTokenAsyncContext);
 
       return handler(event);
     }).use([

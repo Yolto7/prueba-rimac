@@ -3,7 +3,7 @@ import {
   AsyncContext,
   SysTokenAsyncContext,
 } from '../../infrastructure/context';
-import { DOORMAN_CONSTANTS } from '../constants';
+import { RIMAC_CONSTANTS } from '../constants';
 import { UniqueEntityId, UniqueId } from '../entity/uniqueEntityId';
 import { getToday } from '../../infrastructure/helpers/date';
 
@@ -34,9 +34,9 @@ export abstract class DomainEvent {
     this.eventName = eventName;
     this.eventId = eventId || UniqueEntityId.random();
     this.occurredOn = occurredOn || getToday('YYYY-MM-DD HH:mm:ss');
-    this.context = AsyncContext.get<RequestAsyncContext>(DOORMAN_CONSTANTS.ASYNCCONTEXT.REQUEST);
+    this.context = AsyncContext.get<RequestAsyncContext>(RIMAC_CONSTANTS.ASYNCCONTEXT.REQUEST);
     this.sysTokenContext = AsyncContext.get<SysTokenAsyncContext>(
-      DOORMAN_CONSTANTS.ASYNCCONTEXT.SYS_TOKEN
+      RIMAC_CONSTANTS.ASYNCCONTEXT.SYS_TOKEN
     );
   }
 }

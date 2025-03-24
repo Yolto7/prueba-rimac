@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 
-import { ConfigBase, DOORMAN_CONSTANTS } from '@rimac/shared';
+import { ConfigBase, RIMAC_CONSTANTS } from '@rimac/shared';
 
 dotenv.config();
 
@@ -17,7 +17,7 @@ export interface Config extends ConfigBase {
 }
 
 const {
-  NODE_ENV = DOORMAN_CONSTANTS.ENVIRONMENTS.STG,
+  NODE_ENV = RIMAC_CONSTANTS.ENVIRONMENTS.STG,
 
   AWS_ACCESS_KEY_ID = '',
   AWS_SECRET_ACCESS_KEY = '',
@@ -50,8 +50,8 @@ export const config: Config = {
   PEOPLE_TABLE_NAME,
 
   SWAPI_API_BASE_URL,
-  isDebug: process.env.NODE_ENV === DOORMAN_CONSTANTS.ENVIRONMENTS.DEBUG,
-  isDevelopment: process.env.NODE_ENV === DOORMAN_CONSTANTS.ENVIRONMENTS.DEV,
-  isStaging: process.env.NODE_ENV === DOORMAN_CONSTANTS.ENVIRONMENTS.STG,
-  isProduction: process.env.NODE_ENV === DOORMAN_CONSTANTS.ENVIRONMENTS.PROD,
+  isDebug: process.env.NODE_ENV === RIMAC_CONSTANTS.ENVIRONMENTS.DEBUG,
+  isDevelopment: process.env.NODE_ENV === RIMAC_CONSTANTS.ENVIRONMENTS.DEV,
+  isStaging: process.env.NODE_ENV === RIMAC_CONSTANTS.ENVIRONMENTS.STG,
+  isProduction: process.env.NODE_ENV === RIMAC_CONSTANTS.ENVIRONMENTS.PROD,
 };

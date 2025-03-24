@@ -4,7 +4,7 @@ import {
   SysTokenAsyncContext,
 } from '../../infrastructure/context';
 import { getToday } from '../../infrastructure/helpers/date';
-import { DOORMAN_CONSTANTS } from '../constants';
+import { RIMAC_CONSTANTS } from '../constants';
 import { UniqueEntityId, UniqueId } from '../entity/uniqueEntityId';
 
 export interface IntegrationEventInput {
@@ -31,9 +31,9 @@ export abstract class IntegrationEvent {
     this.eventName = eventName;
     this.eventId = eventId || UniqueEntityId.random();
     this.occurredOn = occurredOn || getToday('YYYY-MM-DD HH:mm:ss');
-    this.context = AsyncContext.get<RequestAsyncContext>(DOORMAN_CONSTANTS.ASYNCCONTEXT.REQUEST);
+    this.context = AsyncContext.get<RequestAsyncContext>(RIMAC_CONSTANTS.ASYNCCONTEXT.REQUEST);
     this.sysTokenContext = AsyncContext.get<SysTokenAsyncContext>(
-      DOORMAN_CONSTANTS.ASYNCCONTEXT.SYS_TOKEN
+      RIMAC_CONSTANTS.ASYNCCONTEXT.SYS_TOKEN
     );
   }
 }

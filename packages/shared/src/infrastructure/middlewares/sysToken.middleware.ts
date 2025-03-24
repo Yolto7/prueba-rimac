@@ -8,9 +8,9 @@ import { SysTokenAsyncContext } from '../context';
 
 interface Config {
   IDENTITIES_API_BASE_URL: string;
-  DOORMAN_SYS_USER_EMAIL: string;
-  DOORMAN_SYS_USER_PASSWORD: string;
-  DOORMAN_SYS_TOKEN_REFRESH_TIME: number;
+  RIMAC_SYS_USER_EMAIL: string;
+  RIMAC_SYS_USER_PASSWORD: string;
+  RIMAC_SYS_TOKEN_REFRESH_TIME: number;
 }
 
 export class SysTokenMiddleware {
@@ -28,8 +28,8 @@ export class SysTokenMiddleware {
 
   private async fetchSysToken(): Promise<SysTokenAsyncContext> {
     const { data } = await this.axios.post(`/internal/login`, {
-      email: this.config.DOORMAN_SYS_USER_EMAIL,
-      password: this.config.DOORMAN_SYS_USER_PASSWORD,
+      email: this.config.RIMAC_SYS_USER_EMAIL,
+      password: this.config.RIMAC_SYS_USER_PASSWORD,
     });
 
     const decoded: JwtPayload = jwtDecode(data.data.accessToken as string),
@@ -45,8 +45,7 @@ export class SysTokenMiddleware {
   private async getCachedSysToken(): Promise<SysTokenAsyncContext> {
     if (
       !SysTokenMiddleware.tokenData ||
-      SysTokenMiddleware.tokenData.expiresAt - Date.now() <
-        this.config.DOORMAN_SYS_TOKEN_REFRESH_TIME
+      SysTokenMiddleware.tokenData.expiresAt - Date.now() < this.config.RIMAC_SYS_TOKEN_REFRESH_TIME
     ) {
       SysTokenMiddleware.tokenData = await this.fetchSysToken();
     }

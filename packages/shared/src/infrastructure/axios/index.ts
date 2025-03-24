@@ -1,6 +1,6 @@
 import axios, { AxiosInstance as Instance, RawAxiosRequestHeaders } from 'axios';
 
-import { DOORMAN_CONSTANTS } from '../../domain/constants';
+import { RIMAC_CONSTANTS } from '../../domain/constants';
 import { AsyncContext, RequestAsyncContext } from '../context';
 
 export type AxiosInstance = Instance;
@@ -25,7 +25,7 @@ function getAxios(config: AxiosConfig) {
   client.interceptors.request.use(
     (request) => {
       const traceContext = AsyncContext.get<RequestAsyncContext>(
-        DOORMAN_CONSTANTS.ASYNCCONTEXT.REQUEST
+        RIMAC_CONSTANTS.ASYNCCONTEXT.REQUEST
       );
       if (!request.headers.Authorization && traceContext?.token) {
         request.headers.Authorization = `Bearer ${traceContext.token}`;
